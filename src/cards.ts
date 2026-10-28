@@ -143,11 +143,12 @@ export function mountCards() {
         const d = Math.max(0, i - gone);             // position in the remaining stack, 0 = top
         gone += out;
         const mess = Math.min(d, 2);
-        // flick: lift towards the viewer, drift up, turn and fade out
-        // well before it reaches the edge of the canvas
-        const fade = 1 - smooth(.35, .85, out);
-        c.position.set(u.jx * mess - .7 * out, u.jy * mess + 1.6 * out, -d * .07 + 1.4 * Math.sin(Math.PI * .5 * out));
-        c.rotation.set(-.3 * out, .45 * out, u.jr * mess + .55 * out);
+        // lift off the stack a little, grow slightly and fade out in place,
+        // so the card is gone long before it could reach the nav or the text
+        const fade = 1 - smooth(.1, .65, out);
+        c.position.set(u.jx * mess - .25 * out, u.jy * mess + .35 * out, -d * .07 + .9 * out);
+        c.rotation.set(-.12 * out, .15 * out, u.jr * mess + .18 * out);
+        c.scale.setScalar(1 + .06 * out);
         c.visible = fade > .001;
         c.renderOrder = N - i;
         u.mats.forEach(m => { m.opacity = fade; m.depthWrite = fade > .99; });
