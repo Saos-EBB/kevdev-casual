@@ -71,6 +71,7 @@ main { padding-top: calc(var(--bar) + env(safe-area-inset-top, 0px)); }
 .end { max-width: var(--max); margin: 0 auto; padding: 60px var(--gut) 120px; display: grid; gap: 22px; justify-items: start; }
 .end h2 { font-size: clamp(40px, 6vw, 88px); }
 .foot { border-top: 1px solid var(--line); }
+.foot-in a { color: inherit; }
 .foot-in { max-width: var(--max); margin: 0 auto; padding: 22px var(--gut); display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; justify-content: space-between; font-size: 13px; color: var(--muted); }
 .next { all: unset; cursor: pointer; font-weight: 600; color: var(--fg); }
 .next:hover { text-decoration: underline; }
