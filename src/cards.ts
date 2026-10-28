@@ -68,7 +68,11 @@ function stepFloat(root: Element) {
   let sp = 0;
   steps.forEach((el, i) => { const r = el.getBoundingClientRect(); if (r.top <= anchor) sp = i + clamp((anchor - r.top) / r.height); });
   const on = Math.min(steps.length - 1, Math.floor(sp));
-  steps.forEach((el, i) => el.classList.toggle("on", i === on));
+  // only touch the classes when the step changes (see demos/main.ts)
+  if (root.getAttribute("data-on") !== String(on)) {
+    root.setAttribute("data-on", String(on));
+    steps.forEach((el, i) => el.classList.toggle("on", i === on));
+  }
   return { sp, on };
 }
 export function mountCards() {
@@ -125,9 +129,12 @@ export function mountCards() {
   const size = () => { const w = canvas.clientWidth, h = canvas.clientHeight; if (!w || !h) return; r.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix(); };
   new ResizeObserver(size).observe(canvas); size();
 
-  let s = 0;
+  let s = 0, ready = false;
+  // shaders compile off the main thread; draw once they're ready
+  r.compileAsync(scene, cam).then(() => { ready = true; }, () => { ready = true; });
   watch(canvas, {
     tick(t, dt) {
+      if (!ready) return;
       const st = stepFloat(intro);
       s = lerp(s, st.sp, 1 - Math.exp(-dt * 3.5));
       counter.textContent = `Karte ${st.on + 1} / ${N}`;

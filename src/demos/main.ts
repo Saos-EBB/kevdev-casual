@@ -1,12 +1,12 @@
 // Demo product pages: three fictional products, one tab each. Each scene is
 // built the first time its tab opens and only renders while it is visible.
-import "@fontsource/gloock";
+import "@fontsource/gloock/latin.css";
 import "@fontsource-variable/hanken-grotesk";
-import "@fontsource/ibm-plex-mono/400.css";
-import "@fontsource/ibm-plex-mono/500.css";
+import "@fontsource/ibm-plex-mono/latin-400.css";
+import "@fontsource/ibm-plex-mono/latin-500.css";
 import "@fontsource-variable/schibsted-grotesk";
 import "@fontsource-variable/martian-mono";
-import "@fontsource/bagel-fat-one";
+import "@fontsource/bagel-fat-one/latin.css";
 import "@fontsource-variable/rethink-sans";
 import "./demos.css";
 import { REDUCE, clamp } from "./shared";
@@ -34,6 +34,11 @@ function ensureScene(id: string) {
   try {
     const sc = builders[id](canvas);
     sc.visible = true;
+    // Compile the shaders off the main thread (KHR_parallel_shader_compile)
+    // and only start drawing once they're ready; the first render used to
+    // compile them synchronously and freeze the page for ~1 s on phones.
+    sc.ready = false;
+    sc.renderer.compileAsync(sc.scene, sc.camera).then(() => { sc.ready = true; }, () => { sc.ready = true; });
     new ResizeObserver(() => sizeScene(sc)).observe(canvas);
     new IntersectionObserver(es => { sc.visible = es[0].isIntersecting; }).observe(canvas);
     sizeScene(sc);
@@ -64,7 +69,12 @@ function stepFloat(art: Element) {
   let sp = 0;
   steps.forEach((el, i) => { const r = el.getBoundingClientRect(); if (r.top <= anchor) sp = i + clamp((anchor - r.top) / r.height); });
   const on = Math.min(steps.length - 1, Math.floor(sp));
-  steps.forEach((el, i) => el.classList.toggle("on", i === on));
+  // only touch the classes when the step changes: a class write every frame
+  // invalidates styles, and the next frame's position reads then force a recalc
+  if (art.getAttribute("data-on") !== String(on)) {
+    art.setAttribute("data-on", String(on));
+    steps.forEach((el, i) => el.classList.toggle("on", i === on));
+  }
   return sp;
 }
 document.querySelectorAll<HTMLElement>("[data-jump]").forEach(b => b.addEventListener("click", () => {
@@ -120,7 +130,7 @@ function frame(now: number) {
     }
     lastScroll = scrollY;
     const sc = scenes[active];
-    if (sc && sc.visible) { sc.update(sp, now / 1000, dt); sc.renderer.render(sc.scene, sc.camera); if (active === "kern") placeCallout(sc); }
+    if (sc && sc.visible && sc.ready) { sc.update(sp, now / 1000, dt); sc.renderer.render(sc.scene, sc.camera); if (active === "kern") placeCallout(sc); }
   }
   requestAnimationFrame(frame);
 }

@@ -4,7 +4,7 @@ import "@fontsource-variable/gabarito";
 import "@fontsource-variable/onest";
 import "@fontsource-variable/martian-mono";
 // Only for the Zirbn sketch on its demo card.
-import "@fontsource/bagel-fat-one";
+import "@fontsource/bagel-fat-one/latin.css";
 import "./style.css";
 import "./ui";
 import { mountCards } from "./cards";
