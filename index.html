@@ -1,262 +1,186 @@
 <!doctype html>
 <html lang="de">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>kev.dev Casual</title>
-  <meta name="description" content="Kevin Schaberl, Junior-Entwickler aus Linz: Web-Apps, Automatisierungen und Websites, die man gern anfasst.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Kevin Schaberl · Produktseiten, die man anfassen will</title>
+<meta name="description" content="Kevin Schaberl baut Produktseiten mit 3D und Scroll-Animationen. Webentwickler aus Linz, remote im DACH-Raum.">
 </head>
 <body>
 <header class="nav">
   <div class="wrap">
-    <div class="nav-in">
-      <button class="logo" id="logo" type="button" aria-label="kev.dev, nach oben"><i></i>kev.dev</button>
-      <nav class="nav-links" aria-label="Hauptnavigation">
-        <a href="#angebot">Angebot</a><a href="#werkstatt">Werkstatt</a><a href="#ablauf">Ablauf</a><a href="#ueber">Über mich</a><a href="#fragen">Fragen</a>
-      </nav>
-      <a class="btn sm" href="#hallo">Hallo sagen <span class="arr">→</span></a>
-      <button class="icon-btn" id="themeBtn" type="button" aria-label="Hell/Dunkel umschalten"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20 14.5A8 8 0 019.5 4a8 8 0 1010.5 10.5z"/></svg></button>
-    </div>
+    <a class="logo" href="#top">kev<span>.</span>dev</a>
+    <nav><a href="#leistung">Leistung</a><a href="#demos">Demos</a><a href="#ablauf">Ablauf</a><a href="#pakete">Pakete</a><a href="#ueber">Über mich</a></nav>
+    <a class="btn" href="#kontakt">Projekt anfragen</a>
   </div>
 </header>
 
-<main>
-<section class="hero" id="top">
-  <div class="wrap hero-grid">
-    <div>
-      <span class="avail"><b></b>Sofort verfügbar · Raum Linz oder remote</span>
-      <h1>
-        <span class="w" style="--i:0">Ich</span> <span class="w" style="--i:1">baue</span> <span class="w" style="--i:2">Software,</span>
-        <span class="w" style="--i:3">die</span> <span class="w" style="--i:4">sich</span>
-        <span class="w" style="--i:5"><span class="alive" id="alive">lebendig</span></span> <span class="w" style="--i:6">anfühlt.</span>
-      </h1>
-      <p class="hero-sub">Servus, ich bin Kevin. Ich baue Web-Apps, kleine Helfer, die nervige Arbeit abnehmen, und Websites, die man gern anfasst. Ich bin Junior-Entwickler, Autodidakt und Papa, und ich plane, bevor ich baue.</p>
-      <div class="hero-cta">
-        <a class="btn magnet" href="#hallo">Erzähl mir deine Idee <span class="arr">→</span></a>
-        <a class="btn ghost magnet" href="#werkstatt">Projekte ansehen</a>
-      </div>
-      <div class="facts">
-        <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4.5h12M2 8h12M2 11.5h8"/></svg>TypeScript-Fullstack</span>
-        <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="6" r="2.5"/><path d="M8 14s-5-4.2-5-8a5 5 0 0110 0c0 3.8-5 8-5 8z"/></svg>Linz · remote im DACH-Raum</span>
-        <span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 8.5l3 3 7-7"/></svg>9 Projekte, alle solo gebaut</span>
-      </div>
-    </div>
-    <div class="stage" id="stage">
-      <canvas id="field" aria-hidden="true"></canvas>
-      <section class="now" aria-labelledby="nowH">
-        <h2 id="nowH">Gerade auf der Werkbank</h2>
-        <ul>
-          <li><b>YourBrand · Shop-Modul</b><em class="live">in Arbeit</em><span>Essen, Merch und Lizenz-Keys. Auffällige Bestellungen hält das System an, bis ein Mensch entscheidet.</span></li>
-          <li><b>TschoBBo · JEV</b><em>auf Branch</em><span>Ein kleines lokales Modell sortiert Stellen vor und ordnet Antworten ein.</span></li>
-          <li><b>kev.dev</b><em>läuft weiter</em><span>Meine Seite, sechster Anlauf. Gerade: Projektkarten, die sich an den Text anpassen.</span></li>
-        </ul>
-      </section>
-    </div>
-  </div>
-</section>
-
-<div class="tools" aria-label="Werkzeuge, mit denen ich arbeite"><div class="tools-track" id="tools"></div></div>
-
-<section id="angebot">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <span class="label">Was ich für dich bauen kann</span>
-      <h2>Drei Sachen, die ich richtig gern mache.</h2>
-      <p>Jede davon hab ich schon für mich selbst gebaut. In der Werkstatt weiter unten kannst du sie dir ansehen.</p>
-    </div>
-    <div class="svc-grid">
-      <article class="svc rv" style="--d:0">
-        <div class="svc-vis"><div class="mini-app" id="miniApp"><div class="side"><i></i><i></i><i></i><i></i></div><div class="main"><div class="t-name" id="miniName">YourBrand</div><div class="t-kind" id="miniKind"></div><div class="cards"><b></b><b></b><b></b><b></b></div><span class="pill" id="miniTier">Premium</span></div></div></div>
-        <div class="svc-body">
-          <h3>Deine Plattform, deine Marke</h3>
-          <p>Eine Web-App, in der sich Menschen finden, schreiben und organisieren. In deinen Farben und mit den Funktionen, die du brauchst.</p>
-          <ul><li>Datenbank und Sicherheit sauber geplant</li><li>Barrierearm: Leichte Sprache, Kontrast, große Schrift</li><li>DSGVO von Anfang an mitgedacht</li></ul>
-        </div>
-        <div class="svc-ex">So schon gebaut <a href="#werkstatt">YourBrand →</a></div>
-      </article>
-      <article class="svc rv" style="--d:1">
-        <div class="svc-vis"><canvas id="svcInbox"></canvas></div>
-        <div class="svc-body">
-          <h3>Nervkram automatisieren</h3>
-          <p>Etwas, das du jede Woche von Hand machst? Ein kleiner Helfer sammelt, sortiert und bereitet vor. Die Entscheidung bleibt bei dir.</p>
-          <ul><li>Daten aus mehreren Quellen an einem Ort</li><li>Wenn's geht lokal, dann bleiben deine Daten bei dir</li><li>Mit Tests, damit Änderungen nichts kaputt machen</li></ul>
-        </div>
-        <div class="svc-ex">So schon gebaut <a href="#werkstatt">TschoBBo →</a></div>
-      </article>
-      <article class="svc rv" style="--d:2">
-        <div class="svc-vis"><canvas id="svcCloth"></canvas></div>
-        <div class="svc-body">
-          <h3>Websites, die man gern anfasst</h3>
-          <p>Eine Seite, an die man sich erinnert. Jede Animation hat einen Grund, und fürs Handy gibt's eine eigene, leichtere Variante.</p>
-          <ul><li>Eigene Interaktionen statt Baukasten</li><li>Eigene Handy-Variante statt Kompromiss</li><li>Mehrsprachig ohne extra Bibliothek</li></ul>
-        </div>
-        <div class="svc-ex">So schon gebaut <a href="#werkstatt">kev.dev →</a></div>
-      </article>
-    </div>
-  </div>
-</section>
-
-<section id="werkstatt" style="padding-top:0">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <span class="label">Die Werkstatt</span>
-      <h2>Lieber zeigen als erzählen.</h2>
-      <p>Alles hier hab ich gebaut, weil ich es gebraucht hab oder etwas lernen wollte. Fahr drüber, klick rein, drück Tasten.</p>
-    </div>
-    <div class="bento">
-      <article class="tile t-yb rv">
-        <div class="vis yb-vis">
-          <div class="tenant-tabs" id="tenantTabs" role="group" aria-label="Mandant wählen"></div>
-          <div class="device" id="device">
-            <div class="d-top" id="dTop"></div>
-            <div class="d-side" id="dSide"></div>
-            <div class="d-main"><span class="d-tier" id="dTier"></span><div class="d-hello" id="dHello"></div><div class="d-kind" id="dKind"></div><div class="d-cards"><div><b></b><i></i><i></i></div><div><b></b><i></i><i></i></div><div><b></b><i></i><i></i></div></div><div class="d-mods" id="dMods"></div></div>
-            <span class="d-note">vereinfacht · Farben &amp; Menü aus tenant.json</span>
-            <div class="wipe" id="wipe"></div>
-          </div>
-        </div>
-        <div class="cap"><h3>YourBrand <em>White-Label-Plattform</em></h3><p>Ein Code, fünf Plattformen: vom Studi-Dating bis zum Treffpunkt fürs betreute Wohnen. Was sie unterscheidet, steht in einer einzigen Datei. Klick die Marken durch.</p></div>
-      </article>
-      <article class="tile t-tb rv" style="--d:1">
-        <div class="vis" id="pipeVis"><div class="pipe" id="pipe"></div><div class="jobcard" id="jobcard">job #14</div><span class="you">abgeschickt wird von mir</span></div>
-        <div class="cap"><h3>TschoBBo <em>Bewerbungs-Bot</em></h3><p>Sucht auf fünf Jobbörsen, sortiert vor und schreibt Entwürfe für Anschreiben, lokal auf meinem Rechner.</p></div>
-      </article>
-      <article class="tile rv" style="--d:2">
-        <div class="vis"><canvas id="tCloth"></canvas></div>
-        <div class="cap"><h3>kev.dev</h3><p>Meine Seite. Mit einem Tuch, das man anfassen muss.</p></div>
-      </article>
-      <article class="tile rv" style="--d:3">
-        <div class="vis"><div class="osk" id="osk" tabindex="0" role="button" aria-label="Oskalizer ausprobieren: Taste drücken oder klicken"><div><div class="big" id="oskL">A</div><div class="ani" id="oskE" aria-hidden="true">🐒</div><div class="say" id="oskS">A wie Affe</div></div></div></div>
-        <div class="cap"><h3>Oskalizer</h3><p>Für meinen Sohn. Drück eine Taste oder klick rein.</p></div>
-      </article>
-      <article class="tile t-rw rv" style="--d:1">
-        <div class="vis"><canvas id="tCal"></canvas></div>
-        <div class="cap"><h3>ReleaseWatcher <em>Serien · Anime · Manga</em></h3><p>Sagt mir, wann es neue Folgen und Kapitel gibt. Vier Quellen, eine Liste.</p></div>
-      </article>
-      <article class="tile rv" style="--d:2">
-        <div class="vis"><canvas id="tCube"></canvas></div>
-        <div class="cap"><h3>3D-Renderer</h3><p>3D ohne 3D-Bibliothek, bis zum Schädel-CT.</p></div>
-      </article>
-      <article class="tile rv" style="--d:3">
-        <div class="vis"><canvas id="tDots"></canvas></div>
-        <div class="cap"><h3>FaceDots</h3><p>Foto rein, Punkte raus. Nichts verlässt den Browser.</p></div>
-      </article>
-      <article class="tile rv" style="--d:1">
-        <div class="vis" id="aniVis"><div class="lines"><div class="row">vorher<div class="bar" id="barA" style="--c:var(--ink-3)">~5000</div></div><div class="row">jetzt<div class="bar" id="barB" style="--c:var(--acc);--t:var(--acc-ink)">~1000</div></div><div class="note">Zeilen, neu geschrieben und kommentiert</div></div></div>
-        <div class="cap"><h3>AniScript</h3><p>Autoplay und Intro-Skip für meine Anime-Abende.</p></div>
-      </article>
-      <article class="tile rv" style="--d:2">
-        <div class="vis"><canvas id="tTerm"></canvas></div>
-        <div class="cap"><h3>Grundlagen</h3><p>Java aus dem Bootcamp, von Hand getippt. Läuft im Browser.</p></div>
-      </article>
-      <article class="tile t-cta rv" style="--d:3">
-        <h3>Und dein Projekt?</h3>
-        <p>Hier ist noch Platz. Erzähl mir, was dich nervt oder was du dir wünschst.</p>
-        <a class="btn magnet" href="#hallo">Lass uns reden <span class="arr">→</span></a>
-      </article>
-    </div>
-  </div>
-</section>
-
-<section style="padding-top:0">
-  <div class="wrap">
-    <div class="stats rv" id="stats">
-      <div class="stats-head"><h2>Was die Zahlen sagen</h2><p>Jede Zahl stammt aus einem Projekt oben und steht für etwas, das du davon hättest.</p></div>
-      <div class="stats-grid">
-        <div class="stat"><b><span class="cnt" data-to="5">5</span></b><span class="what">Plattformen aus einem Code</span><span class="why">Bei YourBrand ist ein neuer Kunde eine Config-Datei und ein Befehl, kein neues Projekt.</span><span class="src">YourBrand</span></div>
-        <div class="stat"><b>~<span class="cnt" data-to="2">2</span><small>Monate</small></b><span class="what">bis zum lauffähigen Prototyp</span><span class="why">Datenbank, Backend und Frontend, alleine. Rund 450 Stunden.</span><span class="src">YourBrand</span></div>
-        <div class="stat"><b>~<span class="cnt" data-to="580">580</span></b><span class="what">automatische Tests</span><span class="why">Laufen offline, ohne Netz und ohne Sprachmodell. Änderungen machen so nichts unbemerkt kaputt.</span><span class="src">TschoBBo</span></div>
-        <div class="stat"><b><span class="cnt" data-to="0">0</span></b><span class="what">Fotos hochgeladen</span><span class="why">FaceDots stellt dein Gesicht direkt im Browser frei. Das Foto verlässt dein Gerät nie.</span><span class="src">FaceDots</span></div>
+<main id="top">
+  <section class="intro">
+    <div class="story wrap">
+      <div class="stage-wrap"><div class="stage">
+        <canvas id="cards" aria-label="3D-Stapel mit Kevins fünf Visitenkarten, von denen beim Scrollen jeweils die oberste weggeschnippt wird"></canvas>
+        <span class="stage-tag"><b id="card-n">Karte 1 / 5</b> · Visitenkarte 85 × 55 mm</span>
+      </div></div>
+      <div class="cs-steps">
+        <div class="cs-step on"><div class="panel">
+          <span class="avail"><i></i>Sofort verfügbar · Linz &amp; remote</span>
+          <h1>Produktseiten, die man <em>anfassen</em> will.</h1>
+          <p>Servus, ich bin Kevin. Ich baue Seiten, auf denen sich dein Produkt dreht, zerlegt und selbst erklärt, statt nur als Foto herumzuliegen.</p>
+          <div class="actions"><a class="btn" href="#demos">Demos ansehen</a><a class="btn ghost" href="#kontakt">Projekt anfragen</a></div>
+          <span class="hint">Scroll weiter, ich geb dir meine Karten.</span>
+        </div></div>
+        <div class="cs-step"><div class="panel">
+          <span class="label">Karte 2 · Was ich baue</span>
+          <h2>Seiten, die dein Produkt vorführen.</h2>
+          <p>Dein Produkt in 3D, eine Geschichte beim Scrollen und eine eigene Variante fürs Handy. Wie das aussieht, zeigen die Demos weiter unten.</p>
+        </div></div>
+        <div class="cs-step"><div class="panel">
+          <span class="label">Karte 3 · Womit</span>
+          <h2>TypeScript, Three.js und viel Geduld.</h2>
+          <p>Für 3D und Animation nehm ich Three.js und GSAP, für Apps React und PostgreSQL. Und wenn's sein muss, auch mal C++.</p>
+        </div></div>
+        <div class="cs-step"><div class="panel">
+          <span class="label">Karte 4 · Was schon läuft</span>
+          <h2>Neun Projekte, alle solo gebaut.</h2>
+          <p>Von der White-Label-Plattform bis zur Lern-App für meinen Sohn. Von der Datenbank bis zur Oberfläche hab ich alles selbst gemacht.</p>
+        </div></div>
+        <div class="cs-step"><div class="panel">
+          <span class="label">Karte 5 · Kontakt</span>
+          <h2>Behalt meine Karte.</h2>
+          <p>Oder schreib mir gleich. Ein paar Sätze zu deinem Produkt reichen, ich antworte persönlich.</p>
+          <div class="actions"><a class="btn" href="#kontakt">Projekt anfragen</a></div>
+        </div></div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<section id="ablauf" style="padding-top:0">
-  <div class="wrap">
-    <div class="sec-head rv">
-      <span class="label">So arbeiten wir zusammen</span>
-      <h2>Erst denken, dann bauen.</h2>
-      <p>Wenn das Konzept durchdacht ist, ist die Umsetzung der einfachere Teil. Darum fang ich dort an.</p>
-    </div>
-    <div class="proc-grid">
-      <div class="step rv" style="--d:0;--k:1"><span class="num">01</span><h3>Kennenlernen</h3><p>Du erzählst, ich frag nach. Wer nutzt das später, wie soll es sich anfühlen, was darf auf keinen Fall passieren?</p><span class="bar"><i></i></span></div>
-      <div class="step rv" style="--d:1;--k:2"><span class="num">02</span><h3>Plan</h3><p>Ich skizziere, wie es aufgebaut wird und wie viel Arbeit ungefähr drinsteckt. Bevor gebaut wird, weißt du, was kommt.</p><span class="bar"><i></i></span></div>
-      <div class="step rv" style="--d:2;--k:3"><span class="num">03</span><h3>Bauen</h3><p>Früh etwas zum Anklicken. Du siehst Zwischenstände, und ich erkläre Entscheidungen in normalen Worten.</p><span class="bar"><i></i></span></div>
-      <div class="step rv" style="--d:3;--k:4"><span class="num">04</span><h3>Übergeben</h3><p>Es läuft, und der Code ist kommentiert, damit auch jemand anderes ihn versteht.</p><span class="bar"><i></i></span></div>
-    </div>
-  </div>
-</section>
-
-<section style="padding-top:0">
-  <div class="wrap">
-    <div class="sec-head rv"><span class="label">Was mir wichtig ist</span><h2>Drei Sätze, nach denen ich baue.</h2></div>
-    <div class="vals">
-      <div class="val rv" style="--d:0"><span class="ic"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M10 3v4M10 13v4M3 10h4M13 10h4"/></svg></span><q>„Geht nicht“ heißt meistens: noch nicht verstanden.</q><p>Am Anfang von YourBrand hieß es: „Das schaffst du nicht.“ Rund zwei Monate später lief der Prototyp.</p></div>
-      <div class="val rv" style="--d:1"><span class="ic"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 5h12M4 10h8M4 15h10"/></svg></span><q>Ist das Konzept durchdacht, ist die Umsetzung der einfachere Teil.</q><p>Vor dem YourBrand-Backend saß ich zwei Wochen nur am Datenbank-Entwurf.</p></div>
-      <div class="val rv" style="--d:2"><span class="ic"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="10" cy="10" r="6"/></svg></span><q>Einfache Lösungen sind robuster und leichter zu verstehen.</q><p>Ein fremdes Script mit rund 5000 Zeilen hab ich durch rund 1000 eigene ersetzt, mit allem, was ich davon brauche.</p></div>
-    </div>
-  </div>
-</section>
-
-<section id="ueber" style="padding-top:0">
-  <div class="wrap about-grid">
-    <figure class="portrait rv" style="margin:0">
-      <div class="ph"><canvas id="polaDots"></canvas><small>FaceDots-Stil · fahr drüber</small></div>
-      <figcaption class="who"><b>Kevin Schaberl</b><span>Junior Software Developer · Raum Linz</span></figcaption>
-    </figure>
-    <div class="about-txt rv" style="--d:1">
-      <span class="label">Wer da baut</span>
-      <h2>Vom Bodenleger zum Entwickler.</h2>
-      <p>Wenn ich ein neues Spiel starte, nehm ich es zuerst auseinander. In WoW hab ich mich durch komplexe Addons wie WeakAuras gekämpft. <strong>Genauso fühlt sich Programmieren für mich an: wie ein neues Spiel, das ich die nächsten Jahre komplett erkunden will.</strong></p>
-      <p>Früher wollte ich Modedesigner werden und hab Graffiti gemalt. Heute steckt das in Oberflächen und Interaktion. Ausgleich find ich in der Natur und bei meiner Familie, allen voran bei meinem Sohn.</p>
-      <ol class="tl" aria-label="Werdegang">
-        <li class="now"><b>Junior Developer</b><time>seit 2026</time><span style="grid-column:2/-1">Full-Stack-Bootcamp, Talent Hub Linz (Okt 2025 – Jun 2026)</span></li>
-        <li><b>Sanierung Wohnhaus</b><time>2023 – 2025</time><span style="grid-column:2/-1">Familienprojekt in Linz-Ebelsberg</span></li>
-        <li><b>Administrator</b><time>2022 – 2023</time><span style="grid-column:2/-1">BBU GmbH, Linz, davor dort Zivildienst</span></li>
-        <li><b>Auslandsaufenthalt</b><time>2019 – 2021</time><span style="grid-column:2/-1">Schwerpunkt Europa</span></li>
-        <li><b>Sonnenschutztechniker</b><time>2017 – 2019</time><span style="grid-column:2/-1">SUNSTAR, Leonding</span></li>
-        <li><b>Bodenleger</b><time>2012 – 2017</time><span style="grid-column:2/-1">Bodendesign Mittermayer, Linz</span></li>
-      </ol>
-    </div>
-  </div>
-</section>
-
-<section id="fragen" style="padding-top:0">
-  <div class="wrap">
-    <div class="sec-head rv"><span class="label">Fragen, die oft kommen</span><h2>Ehrlich beantwortet.</h2></div>
-    <div class="faq rv">
-      <details open><summary>Arbeitest du alleine?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>Bisher ja. Alle Projekte hier hab ich solo gebaut, von der Datenbank bis zur Oberfläche. Ich bin Junior und freu mich auf ein Team, in dem ich weiter wachsen kann.</p></div></details>
-      <details><summary>Nutzt du KI?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>Ja, bewusst. Konzept und Architektur kommen von mir, die Umsetzung läuft oft über Claude Code als Implementierungs-Agent. Selbst zu coden lass ich mir trotzdem nicht nehmen: Die APIs von YourBrand hab ich selbst geschrieben, und gerade lern ich C++.</p></div></details>
-      <details><summary>Was passiert mit meinen Daten?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>So wenig wie möglich. Bei YourBrand hat jeder Kunde seine eigene Datenbank, und E-Mail-Adressen liegen verschlüsselt drin. TschoBBo schreibt seine Texte lokal statt in der Cloud. FaceDots lädt dein Foto gar nicht erst hoch.</p></div></details>
-      <details><summary>Wo bist du?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>Im Raum Linz. Remote im ganzen DACH-Raum.</p></div></details>
-      <details><summary>Und wenn's mal nicht klappt?<span class="pm" aria-hidden="true"></span></summary><div class="ans"><p>Dann war der Plan nicht genau genug. Ich strukturier neu und setz wieder an, bis es funktioniert. Und ich sag offen, wenn ich etwas noch nicht kann.</p></div></details>
-    </div>
-  </div>
-</section>
-
-<section id="hallo" style="padding-top:0">
-  <div class="wrap">
-    <div class="hello rv">
-      <div>
-        <span class="label">Kontakt</span>
-        <h2 style="margin-top:14px">Sag einfach <em>Hallo.</em></h2>
-        <p>Ob Job, Projekt oder nur eine Frage: Ich antworte persönlich. Ein paar Sätze reichen, dann schauen wir, ob's passt.</p>
+  
+<section id="leistung">
+    <div class="wrap">
+      <div class="head rv"><span class="label">Was du bekommst</span><h2>Eine Seite, die dein Produkt vorführt.</h2></div>
+      <div class="features">
+        <article class="feat rv">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 2 3 7v10l9 5 9-5V7z"/><path d="M3 7l9 5 9-5M12 12v10"/></svg></div>
+          <h3>Dein Produkt in 3D</h3>
+          <p>Drehen, auseinandernehmen, umfärben. Besucher sehen jedes Teil, bevor sie kaufen.</p>
+        </article>
+        <article class="feat rv">
+          <div class="ico"><svg viewBox="0 0 24 24"><path d="M12 3v18M6 15l6 6 6-6"/></svg></div>
+          <h3>Scroll erzählt die Geschichte</h3>
+          <p>Jeder Abschnitt zeigt ein Detail, und das Produkt bewegt sich mit. So liest man weiter, statt wegzuklicken.</p>
+        </article>
+        <article class="feat rv">
+          <div class="ico"><svg viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></div>
+          <h3>Am Handy genauso gut</h3>
+          <p>Eine eigene, leichtere Variante fürs Handy statt einer zusammengequetschten Desktop-Seite.</p>
+        </article>
       </div>
-      <div class="mailbox">
-        <span class="label">E-Mail</span>
-        <span class="addr" id="addr">kevin.schaberl.work@gmail.com</span>
-        <div class="row"><button class="btn sm" id="copyMail" type="button">Adresse kopieren</button><a class="btn sm ghost" href="mailto:kevin.schaberl.work@gmail.com">Mail-App öffnen</a></div>
-        <div class="row"><a class="btn sm ghost" href="https://github.com/Saos-EBB" target="_blank" rel="noopener">GitHub · Saos-EBB ↗</a></div>
+      <div class="extras rv"><span>Mehrsprachig</span><span>3D lädt erst, wenn es gebraucht wird</span><span>Impressum &amp; Datenschutz dabei</span><span>Hell- und Dunkelmodus</span><span>Code kommentiert übergeben</span></div>
+    </div>
+  </section>
+
+  <section id="demos">
+    <div class="wrap">
+      <div class="head rv"><span class="label">Live-Demos · fiktive Produkte</span><h2>Lieber zeigen als erzählen.</h2><p>Drei Produkte, die es nicht gibt, mit Seiten, die es gibt. Klick rein und scroll durch.</p></div>
+      <div class="demos">
+        <a class="demo d-kern big rv" href="demos/#kern">
+          <canvas class="art" id="art-kern" aria-hidden="true"></canvas>
+          <span class="open">Demo öffnen →</span>
+          <div class="tags"><span>Explosionsansicht</span><span>Teile hervorheben</span><span>Callouts</span></div>
+          <h3>Kern 14 · Laptop</h3>
+          <p>Beim Scrollen zerlegt sich der Laptop. Jedes Teil wird einzeln erklärt und leuchtet auf.</p>
+        </a>
+        <a class="demo d-halde rv" href="demos/#halde">
+          <canvas class="art" id="art-halde" aria-hidden="true"></canvas>
+          <span class="open">Demo öffnen →</span>
+          <div class="tags"><span>Animation</span><span>Farbwahl</span></div>
+          <h3>Halde · Kaffeefilter</h3>
+          <p>Filter und Becher fahren auseinander, dann tropft der Kaffee. Die Glasur wählst du selbst.</p>
+        </a>
+        <a class="demo d-zirbn rv" href="demos/#zirbn">
+          <canvas class="art" id="art-zirbn" aria-hidden="true"></canvas>
+          <span class="open">Demo öffnen →</span>
+          <div class="tags"><span>Sortenwechsel</span><span>Laufband</span></div>
+          <h3>Zirbn · Limo</h3>
+          <p>Die Dose dreht sich, Blasen steigen. Pro Sorte wechseln Etikett und Farbe der ganzen Seite.</p>
+        </a>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head rv"><span class="label">Schon gebaut · echte Projekte</span><h2>Nicht nur Demos.</h2></div>
+      <div class="proof rv">
+        <article><b>4 Sprachen</b><h3>kev.dev</h3><p>Meine eigene Seite, mit einem Tuch, das man anfassen muss, in vier Sprachen.</p></article>
+        <article><b>5 Plattformen</b><h3>YourBrand</h3><p>Fünf Plattformen aus einem Code. Ein neuer Kunde ist eine Config-Datei.</p></article>
+        <article><b>0 Uploads</b><h3>FaceDots</h3><p>Foto rein, Punkte raus. Null Fotos hochgeladen, alles läuft im Browser.</p></article>
+        <article><b>0 Bibliotheken</b><h3>3D-Renderer</h3><p>3D ohne 3D-Bibliothek, von Hand gebaut bis zum Schädel-CT.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="ablauf">
+    <div class="wrap">
+      <div class="head rv"><span class="label">So arbeiten wir zusammen</span><h2>Erst denken, dann bauen.</h2></div>
+      <div class="steps">
+        <article class="stp rv"><span class="n">01</span><h3>Kennenlernen</h3><p>Du erzählst, ich frag nach. Wer kauft dein Produkt, und was soll man auf der Seite verstehen?</p><span class="you">Du bringst: dein Produkt und eine Idee</span></article>
+        <article class="stp rv"><span class="n">02</span><h3>Plan</h3><p>Ich skizziere Aufbau, Szenen und Aufwand. Bevor gebaut wird, weißt du, was kommt.</p><span class="you">Du bringst: Fotos, Texte, Farben</span></article>
+        <article class="stp rv"><span class="n">03</span><h3>Bauen</h3><p>Früh etwas zum Anklicken. Du siehst Zwischenstände, ich erkläre Entscheidungen in normalen Worten.</p><span class="you">Du bringst: Feedback</span></article>
+        <article class="stp rv"><span class="n">04</span><h3>Übergeben</h3><p>Die Seite läuft, und der Code ist kommentiert, damit auch jemand anderes ihn versteht.</p><span class="you">Du bekommst: Seite und Code</span></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="pakete">
+    <div class="wrap">
+      <div class="head rv"><span class="label">Pakete <span class="mock">Mockup · Preise offen</span></span><h2>Such dir aus, wie viel Show es sein darf.</h2></div>
+      <div class="packs">
+        <article class="pack rv"><span class="label">Start</span><span class="price">ab … €</span><ul><li>Eine Produktseite, ein Produkt</li><li>Produkt in 3D zum Drehen</li><li>Handy-Variante</li><li>Impressum &amp; Datenschutz</li></ul><span class="demo-ref">So ähnlich wie: Zirbn</span><a class="btn ghost" href="#kontakt">Anfragen</a></article>
+        <article class="pack hot rv"><span class="label">Story</span><span class="price">ab … €</span><ul><li>Alles aus Start</li><li>Scroll-Story mit 4–6 Szenen</li><li>Animation pro Szene</li><li>Konfigurator, z. B. Farben</li></ul><span class="demo-ref">So ähnlich wie: Halde</span><a class="btn" href="#kontakt">Anfragen</a></article>
+        <article class="pack rv"><span class="label">Explodiert</span><span class="price">ab … €</span><ul><li>Alles aus Story</li><li>Explosionsansicht mit Einzelteilen</li><li>Teile hervorheben und erklären</li><li>Mehrsprachig</li></ul><span class="demo-ref">So ähnlich wie: Kern 14</span><a class="btn ghost" href="#kontakt">Anfragen</a></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="ueber">
+    <div class="wrap">
+      <div class="portrait rv"><canvas id="dots" aria-label="Punkteporträt, Platzhalter für FaceDots"></canvas><span class="label">FaceDots-Porträt · fahr drüber</span></div>
+      <div class="about-copy rv">
+        <span class="label">Wer da baut</span>
+        <h2>Vom Bodenleger zum Entwickler.</h2>
+        <p>Ich bin Junior-Entwickler, Autodidakt und Papa, und ich plane, bevor ich baue. Früher wollte ich Modedesigner werden und hab Graffiti gemalt. Heute steckt das in Oberflächen und Interaktion.</p>
+        <p>Wenn ich etwas Neues anfange, nehm ich es zuerst auseinander. Darum gefallen mir Produktseiten, die genau das auch tun.</p>
+        <div class="path"><span>Bodenleger</span>→<span>Sonnenschutz</span>→<span>Admin</span>→<span>Bootcamp</span>→<span>Entwickler</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <div class="head rv"><span class="label">Fragen, die oft kommen</span><h2>Ehrlich beantwortet.</h2></div>
+      <div class="faq rv">
+        <details open><summary>Was brauchst du von mir?</summary><p>Dein Produkt, ein paar Fotos, Texte und deine Farben. Wenn es schon ein 3D-Modell gibt, umso besser. Wenn nicht, schauen wir gemeinsam, wie wir eins bekommen.</p></details>
+        <details><summary>Läuft das auch am Handy?</summary><p>Ja. Das Handy bekommt eine eigene, leichtere Variante, und das 3D lädt erst, wenn man es wirklich sieht.</p></details>
+        <details><summary>Nutzt du KI?</summary><p>Ja, bewusst. Konzept und Architektur kommen von mir, die Umsetzung läuft oft über Claude Code. Selbst coden lass ich mir trotzdem nicht nehmen.</p></details>
+        <details><summary>Arbeitest du alleine?</summary><p>Ja. Alle Projekte hier hab ich solo gebaut, von der Datenbank bis zur Oberfläche. Und ich sag offen, wenn ich etwas noch nicht kann.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="kontakt">
+    <div class="wrap">
+      <div class="box rv">
+        <span class="label" style="color:inherit;opacity:.6">Kontakt</span>
+        <h2>Zeig mir dein Produkt.</h2>
+        <p>Ein paar Sätze reichen. Ich antworte persönlich, und dann schauen wir, ob's passt.</p>
+        <div class="mail"><code id="mail">kevin.schaberl.work@gmail.com</code><button class="btn" id="copy" type="button">Adresse kopieren</button><a class="btn ghost" href="https://github.com/Saos-EBB">GitHub ↗</a></div>
+      </div>
+    </div>
+  </section>
 </main>
-
-<footer><div class="wrap foot"><span>Gebaut in Linz · © 2026 Kevin Schaberl</span><nav aria-label="Rechtliches"><a href="#top">Nach oben</a><a href="#top">Impressum</a><a href="#top">Datenschutz</a></nav></div></footer>
-<canvas id="confetti" aria-hidden="true"></canvas>
-<div class="toast" id="toast" role="status"></div>
+<footer><div class="wrap"><span>Gebaut in Linz · © 2026 Kevin Schaberl</span><span><a href="#top">Impressum</a> · <a href="#top">Datenschutz</a></span></div></footer>
 <script type="module" src="/src/main.ts"></script>
 </body>
 </html>

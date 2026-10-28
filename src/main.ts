@@ -1,22 +1,19 @@
-// kev.dev Casual: one warm scroll page. Each module wires up its own part of
-// the markup in index.html.
-import "@fontsource-variable/bricolage-grotesque";
-import "@fontsource-variable/figtree";
-import "@fontsource-variable/jetbrains-mono";
-// Fonts of the YourBrand tenants, used in the tenant demo only.
-import "@fontsource-variable/dm-sans";
-import "@fontsource/archivo/500.css";
-import "@fontsource/archivo/800.css";
-import "@fontsource/atkinson-hyperlegible/400.css";
-import "@fontsource/atkinson-hyperlegible/700.css";
-import "@fontsource/big-shoulders-display/700";
-import "@fontsource/big-shoulders-display/900";
+// kev.dev Casual: Kevin as the product. Each module wires up its own part of
+// the markup in index.html. Fonts ship locally, no request to Google Fonts.
+import "@fontsource-variable/gabarito";
+import "@fontsource-variable/onest";
+import "@fontsource-variable/martian-mono";
+// Only for the Zirbn sketch on its demo card.
+import "@fontsource/bagel-fat-one";
 import "./style.css";
+import "./ui";
+import { mountCards } from "./cards";
+import { mountDemoArt } from "./demo-art";
+import { mountDots } from "./dots";
 
 // Reveal styles only apply once JS runs, so the page is complete without it.
 document.documentElement.classList.add("js");
 
-import "./ui";
-import "./hero";
-import "./tenants";
-import "./workshop";
+mountCards();
+mountDemoArt();
+mountDots();

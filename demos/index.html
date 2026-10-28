@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Produktseiten-Demos · kev.dev</title>
+<meta name="description" content="Drei fiktive Produktseiten mit 3D und Scroll-Animationen, gebaut von Kevin Schaberl.">
+</head>
+<body>
+<header class="bar">
+  <div class="bar-in">
+    <a class="bar-back" href="../">← kev.dev</a><span class="bar-label"><b>Produktseiten-Demos</b> · fiktive Produkte, gebaut zum Anschauen</span>
+    <div class="tabs" role="tablist" aria-label="Demo wählen">
+      <button class="tab" role="tab" id="tab-halde" data-go="halde" aria-selected="true">Halde · Kaffeefilter</button>
+      <button class="tab" role="tab" id="tab-kern" data-go="kern" aria-selected="false">Kern 14 · Laptop</button>
+      <button class="tab" role="tab" id="tab-zirbn" data-go="zirbn" aria-selected="false">Zirbn · Limo</button>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- ================= HALDE ================= -->
+<article class="demo d1" id="halde" role="tabpanel" aria-labelledby="tab-halde">
+  <div class="top">
+    <span class="brand">Halde</span>
+    <nav><a href="#halde">Filter</a><a href="#halde">Rezept</a><a href="#halde">Glasuren</a><a href="#halde">Details</a></nav>
+    <span class="cart">Warenkorb (0)</span>
+  </div>
+  <section class="story">
+    <div class="steps">
+      <div class="step on"><div class="panel">
+        <span class="eyebrow">Handgedrehter Kaffeefilter · 1–2 Tassen</span>
+        <h1>Langsam ist der ganze Punkt.</h1>
+        <p>Halde ist ein Dripper aus Steinzeug. Du gießt, er wartet. Drei Minuten später hast du den Kaffee, den du sonst nur im Café bekommst.</p>
+        <div class="actions"><button class="btn" data-buy="halde">In den Warenkorb · 49 €</button><button class="btn ghost" data-jump="2">Zum Rezept</button></div>
+        <span class="small">Versand in 2–3 Werktagen · 30 Tage Rückgabe</span>
+      </div></div>
+      <div class="step"><div class="panel">
+        <span class="eyebrow">Was in der Schachtel ist</span>
+        <h2>Drei Teile, kein Plastik.</h2>
+        <ul class="list">
+          <li><span>01</span>Der Dripper aus Steinzeug, bei 1.260 °C gebrannt</li>
+          <li><span>02</span>100 Filtertüten in Größe 02, ungebleicht</li>
+          <li><span>03</span>Ein Becher mit 250 ml, der genau darunter passt</li>
+        </ul>
+      </div></div>
+      <div class="step"><div class="panel">
+        <span class="eyebrow">Das Rezept</span>
+        <h2>Drei Löcher, zweieinhalb Minuten.</h2>
+        <p>Die Löcher haben 2,5 mm. Das hält das Wasser gerade lang genug am Kaffee, damit er süß wird statt bitter.</p>
+        <div class="recipe">
+          <div><b>15 g</b><span>Kaffee, mittelfein</span></div>
+          <div><b>250 g</b><span>Wasser</span></div>
+          <div><b>94 °C</b><span>knapp unter Kochen</span></div>
+          <div><b>2:30</b><span>Minuten Brühzeit</span></div>
+        </div>
+      </div></div>
+      <div class="step"><div class="panel">
+        <span class="eyebrow">Glasur</span>
+        <h2>Jede Halde ist ein bisschen anders.</h2>
+        <p>Die Glasur läuft beim Brennen, darum gleicht kein Stück dem anderen. Such dir die Farbe aus, den Rest macht der Ofen.</p>
+        <div class="swatches" id="halde-glaze">
+          <button class="swatch" data-glaze="#2f5d62" data-name="Fjord" aria-pressed="true" style="--c:#2f5d62"><i></i>Fjord</button>
+          <button class="swatch" data-glaze="#b4613a" data-name="Ton" aria-pressed="false" style="--c:#b4613a"><i></i>Ton</button>
+          <button class="swatch" data-glaze="#d9d5cc" data-name="Asche" aria-pressed="false" style="--c:#d9d5cc"><i></i>Asche</button>
+          <button class="swatch" data-glaze="#232a36" data-name="Nacht" aria-pressed="false" style="--c:#232a36"><i></i>Nacht</button>
+        </div>
+        <div class="actions"><button class="btn" id="halde-buy">Halde in Fjord · 49 €</button></div>
+      </div></div>
+    </div>
+    <div class="stage-wrap"><div class="stage"><canvas id="cv-halde" aria-label="3D-Ansicht des Kaffeefilters Halde"></canvas></div></div>
+  </section>
+  <section class="specs">
+    <h2 class="reveal">Die Details</h2>
+    <dl class="reveal">
+      <div><dt>Fassung</dt><dd>500 ml</dd></div>
+      <div><dt>Filtergröße</dt><dd>02</dd></div>
+      <div><dt>Auslauf</dt><dd>3 × Ø 2,5 mm</dd></div>
+      <div><dt>Material</dt><dd>Steinzeug</dd></div>
+      <div><dt>Gewicht</dt><dd>410 g</dd></div>
+      <div><dt>Spülmaschine</dt><dd>Ja, Fuß unglasiert</dd></div>
+    </dl>
+  </section>
+  <section class="end">
+    <h2 class="reveal">Morgen früh schon?</h2>
+    <p>Bis 14 Uhr bestellt, am selben Tag verschickt.</p>
+    <button class="btn" data-buy="halde">Halde bestellen · 49 €</button>
+  </section>
+  <footer class="foot"><div class="foot-in"><span>Demo-Produktseite. Halde gibt es nicht. Entwurf von Kevin Schaberl.</span><button class="next" data-go="kern">Nächste Demo: Kern 14 →</button></div></footer>
+</article>
+
+<!-- ================= KERN ================= -->
+<article class="demo d2" id="kern" role="tabpanel" aria-labelledby="tab-kern" hidden>
+  <div class="top">
+    <span class="brand">KERN</span>
+    <nav><a href="#kern">Display</a><a href="#kern">Innenleben</a><a href="#kern">Reparieren</a><a href="#kern">Technik</a></nav>
+    <span class="cart">ab 1.290 €</span>
+  </div>
+  <section class="story">
+    <div class="steps">
+      <div class="step on"><div class="panel">
+        <span class="eyebrow">14-Zoll-Laptop · zum Selbstreparieren</span>
+        <h1>Aufschrauben ausdrücklich erlaubt.</h1>
+        <p>Kern 14 ist ein Laptop, den du selbst öffnen darfst. Scroll weiter, dann nehmen wir ihn Teil für Teil auseinander.</p>
+        <div class="actions"><button class="btn" data-buy="kern">Konfigurieren · ab 1.290 €</button><button class="btn ghost" data-jump="1">Teile ansehen</button></div>
+        <span class="small">Ersatzteile 10 Jahre lang lieferbar</span>
+      </div></div>
+      <div class="step"><div class="panel">
+        <span class="eyebrow">Teil 1 von 6 · Display</span>
+        <h2>Matt, scharf und mit 120 Hz.</h2>
+        <p>14,2 Zoll mit 2880 × 1800 Pixeln. Die matte Oberfläche spiegelt im Zug nicht, und 500 Nits reichen auch auf dem Balkon.</p>
+        <div class="facts"><div><b>2880 × 1800</b><span>Pixel</span></div><div><b>120 Hz</b><span>Bildrate</span></div><div><b>500 nits</b><span>Helligkeit</span></div></div>
+      </div></div>
+      <div class="step"><div class="panel">
+        <span class="eyebrow">Teil 2 von 6 · Tastatur</span>
+        <h2>Tippt sich wie eine richtige Tastatur.</h2>
+        <p>1,5 mm Hub und Beleuchtung in drei Stufen. Wenn eine Taste bricht, tauschst du das ganze Deck mit fünf Schrauben.</p>
+        <div class="facts"><div><b>1,5 mm</b><span>Tastenhub</span></div><div><b>5</b><span>Schrauben</span></div><div><b>QWERTZ</b><span>oder US</span></div></div>
+      </div></div>
+      <div class="step"><div class="panel">
+        <span class="eyebrow">Teil 3 von 6 · Akku</span>
+        <h2>Gesteckt, nicht geklebt.</h2>
+        <p>72 Wh reichen für einen Arbeitstag. Lässt der Akku nach ein paar Jahren nach, ziehst du den Stecker und setzt einen neuen ein.</p>
+        <div class="facts"><div><b>72 Wh</b><span>Kapazität</span></div><div><b>6</b><span>Zellen</span></div><div><b>4</b><span>Schrauben</span></div></div>
+      </div></div>
+      <div class="step"><div class="panel">
+        <span class="eyebrow">Teil 4 von 6 · Chip</span>
+        <h2>Zwölf Kerne, die nicht ins Schwitzen kommen.</h2>
+        <p>Der Chip sitzt mitten auf dem Mainboard, direkt unter der Heatpipe aus Kupfer. Den Arbeitsspeicher gibt es mit 16 oder 32 GB.</p>
+        <div class="facts"><div><b>12</b><span>Kerne</span></div><div><b>32 GB</b><span>RAM</span></div><div><b>28 W</b><span>Dauerleistung</span></div></div>
+      </div></div>
+      <div class="step"><div class="panel">
+        <span class="eyebrow">Teil 5 von 6 · Kühlung</span>
+        <h2>Zwei Lüfter, kaum zu hören.</h2>
+        <p>Unter Last 22 dB(A), etwa so laut wie Flüstern. Die Lüfter kommen ohne Werkzeug raus, zum Putzen reicht ein Pinsel.</p>
+        <div class="facts"><div><b>2</b><span>Lüfter</span></div><div><b>22 dB(A)</b><span>unter Last</span></div><div><b>0</b><span>Werkzeug</span></div></div>
+      </div></div>
+      <div class="step"><div class="panel">
+        <span class="eyebrow">Teil 6 von 6 · SSD</span>
+        <h2>Mehr Platz? Eine Schraube.</h2>
+        <p>Die SSD ist ein normales M.2-Modul. Du kaufst einfach eine größere und schraubst sie selbst ein.</p>
+        <div class="facts"><div><b>M.2 2280</b><span>Format</span></div><div><b>4 TB</b><span>maximal</span></div><div><b>1</b><span>Schraube</span></div></div>
+      </div></div>
+    </div>
+    <div class="stage-wrap"><div class="stage"><canvas id="cv-kern" aria-label="3D-Explosionsansicht des Laptops Kern 14"></canvas><div class="callout" id="kern-callout" aria-hidden="true"><i></i><em></em><span></span></div></div></div>
+  </section>
+  <section class="specs">
+    <h2 class="reveal">Alles auf einen Blick</h2>
+    <dl class="reveal">
+      <div><dt>Display</dt><dd>14,2″ · 120 Hz</dd></div>
+      <div><dt>Chip</dt><dd>12 Kerne</dd></div>
+      <div><dt>Arbeitsspeicher</dt><dd>16 oder 32 GB</dd></div>
+      <div><dt>Akku</dt><dd>72 Wh</dd></div>
+      <div><dt>Gewicht</dt><dd>1,38 kg</dd></div>
+      <div><dt>Anschlüsse</dt><dd>2 × USB-C, USB-A, HDMI</dd></div>
+    </dl>
+  </section>
+  <section class="end">
+    <h2 class="reveal">Zehn Jahre Ersatzteile.</h2>
+    <p>Jedes Teil von dieser Seite gibt es einzeln zu kaufen, mit bebilderter Anleitung.</p>
+    <button class="btn" data-buy="kern">Kern 14 konfigurieren</button>
+  </section>
+  <footer class="foot"><div class="foot-in"><span>Demo-Produktseite. Kern 14 gibt es nicht. Entwurf von Kevin Schaberl.</span><button class="next" data-go="zirbn">Nächste Demo: Zirbn →</button></div></footer>
+</article>
+
+<!-- ================= ZIRBN ================= -->
+<article class="demo d3" id="zirbn" role="tabpanel" aria-labelledby="tab-zirbn" hidden>
+  <div class="top">
+    <span class="brand">Zirbn</span>
+    <nav><a href="#zirbn">Sorten</a><a href="#zirbn">Zutaten</a><a href="#zirbn">Pfand</a></nav>
+    <span class="cart">24er-Tray · 36 €</span>
+  </div>
+  <section class="story">
+    <div class="steps">
+      <div class="step on"><div class="panel">
+        <span class="eyebrow">Kracherl aus dem Mühlviertel</span>
+        <h1>Schmeckt nach Alm&shy;hütte.</h1>
+        <p>Zirbn ist Limo mit Zirbe, Holler oder Marille. Wenig Zucker, viel Kohlensäure, am besten eiskalt.</p>
+        <div class="actions"><button class="btn" data-buy="zirbn">24 Dosen · 36 €</button><button class="btn ghost" data-jump="2">Sorten ansehen</button></div>
+      </div></div>
+      <div class="step"><div class="panel">
+        <span class="eyebrow">Weniger Zucker</span>
+        <h2>4,1 g statt 10 g.</h2>
+        <p>Pro 100 ml steckt in Zirbn weniger als halb so viel Zucker wie in klassischer Limo. Der Rest ist Frucht, Kräuter und Sprudel.</p>
+      </div></div>
+      <div class="step"><div class="panel">
+        <span class="eyebrow">Sorten</span>
+        <h2>Welche zuerst?</h2>
+        <div class="chips" id="zirbn-flavors">
+          <button class="chip" data-flavor="zirbe" aria-pressed="true" style="--c:#1f5a3a"><i></i>Zirbe &amp; Zitrone</button>
+          <button class="chip" data-flavor="holler" aria-pressed="false" style="--c:#5b3b7a"><i></i>Holler &amp; Minze</button>
+          <button class="chip" data-flavor="marille" aria-pressed="false" style="--c:#e0662c"><i></i>Marille &amp; Rosmarin</button>
+        </div>
+        <p id="zirbn-desc">Harzig, frisch, mit Zitrone. Die Sorte, mit der alles angefangen hat.</p>
+      </div></div>
+      <div class="step"><div class="panel">
+        <span class="eyebrow">Pfand</span>
+        <h2>Kommt kalt, geht zurück.</h2>
+        <p>25 Cent Pfand pro Dose. Zurückgeben kannst du sie in jedem Supermarkt in Österreich.</p>
+      </div></div>
+    </div>
+    <div class="stage-wrap"><div class="stage"><canvas id="cv-zirbn" aria-label="3D-Ansicht der Zirbn-Dose"></canvas></div></div>
+  </section>
+  <div class="band" aria-hidden="true"><div class="band-in" id="zirbn-band"></div></div>
+  <section class="specs">
+    <h2 class="reveal">Was drin ist</h2>
+    <table class="nutri reveal">
+      <thead><tr><th>Pro 100 ml</th><th></th></tr></thead>
+      <tbody>
+        <tr><td>Energie</td><td>76 kJ / 18 kcal</td></tr>
+        <tr><td>Fett</td><td>0 g</td></tr>
+        <tr><td>Kohlenhydrate</td><td>4,3 g</td></tr>
+        <tr class="sub"><td>davon Zucker</td><td>4,1 g</td></tr>
+        <tr><td>Eiweiß</td><td>0 g</td></tr>
+        <tr><td>Salz</td><td>0,01 g</td></tr>
+      </tbody>
+    </table>
+  </section>
+  <section class="end">
+    <h2 class="reveal">Ein Tray, drei Sorten?</h2>
+    <p>Der Mischtray hat von jeder Sorte 8 Dosen.</p>
+    <button class="btn" data-buy="zirbn">Mischtray · 36 €</button>
+  </section>
+  <footer class="foot"><div class="foot-in"><span>Demo-Produktseite. Zirbn gibt es nicht. Entwurf von Kevin Schaberl.</span><button class="next" data-go="halde">Zurück zur ersten Demo: Halde →</button></div></footer>
+</article>
+</main>
+<script type="module" src="/src/demos/main.ts"></script>
+</body>
+</html>
