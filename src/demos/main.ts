@@ -110,7 +110,7 @@ function applyFlavor(key: string) {
 }
 document.querySelectorAll<HTMLElement>("#zirbn-flavors .chip").forEach(b => b.addEventListener("click", () => applyFlavor(b.dataset.flavor!)));
 const band = document.getElementById("zirbn-band")!;
-let bandX = 0, lastScroll = scrollY;
+let bandX = 0;
 band.innerHTML = Array(8).fill("<span>Zischt · Zirbn · Eiskalt ·</span>").join("");
 
 // transform-only reveals: text is readable before they run
@@ -124,12 +124,11 @@ function frame(now: number) {
     const art = document.getElementById(active)!;
     const sp = stepFloat(art);
     if (active === "zirbn") {
-      // Endless right-to-left, always (also with reduced motion: it's one slow,
-      // even drift, no jumps), and faster while you scroll.
-      bandX += dt * 110 + Math.abs(scrollY - lastScroll) * .4;
+      // Endless right-to-left at one steady speed, independent of scrolling
+      // (also with reduced motion: it's one slow, even drift, no jumps).
+      bandX += dt * 110;
       band.style.transform = `translateX(${-(bandX % (band.scrollWidth / 2))}px)`;
     }
-    lastScroll = scrollY;
     const sc = scenes[active];
     if (sc && sc.visible && sc.ready) { sc.update(sp, now / 1000, dt); sc.renderer.render(sc.scene, sc.camera); if (active === "kern") placeCallout(sc); }
   }
