@@ -123,9 +123,10 @@ function frame(now: number) {
   if (active) {
     const art = document.getElementById(active)!;
     const sp = stepFloat(art);
-    if (active === "zirbn" && !REDUCE) {
-      // runs on its own and speeds up while you scroll
-      bandX += dt * 70 + Math.abs(scrollY - lastScroll) * .4;
+    if (active === "zirbn") {
+      // Endless right-to-left, always (also with reduced motion: it's one slow,
+      // even drift, no jumps), and faster while you scroll.
+      bandX += dt * 110 + Math.abs(scrollY - lastScroll) * .4;
       band.style.transform = `translateX(${-(bandX % (band.scrollWidth / 2))}px)`;
     }
     lastScroll = scrollY;
