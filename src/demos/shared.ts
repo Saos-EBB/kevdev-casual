@@ -6,6 +6,7 @@ export const clamp = (v: number, a = 0, b = 1) => Math.min(b, Math.max(a, v));
 export const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 export const ease = (t: number) => t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
 export const seg = (x: number, a: number, b: number) => clamp((x - a) / (b - a));
+export const smooth = (a: number, b: number, x: number) => { const k = seg(x, a, b); return k * k * (3 - 2 * k); };
 export const col = (h: THREE.ColorRepresentation) => new THREE.Color(h);
 
 export function makeRenderer(canvas: HTMLCanvasElement, shadows = false) {

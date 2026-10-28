@@ -104,13 +104,16 @@ export function mountCards() {
   const stack = new THREE.Group(); scene.add(stack);
   const cards = KINDS.map((k, i) => {
     const g = new THREE.Group();
-    const frontMat = new THREE.MeshBasicMaterial({ map: tex(cardCanvas(k)) });
+    // own materials per card so a card can fade out on its own while it is flicked away
+    const frontMat = new THREE.MeshBasicMaterial({ map: tex(cardCanvas(k)), transparent: true });
+    const backMat = new THREE.MeshBasicMaterial({ map: backTex, transparent: true });
+    const edgeMat = edge.clone(); edgeMat.transparent = true;
     const front = new THREE.Mesh(faceGeo, frontMat); front.position.z = .001;
-    const back = new THREE.Mesh(faceGeo, new THREE.MeshBasicMaterial({ map: backTex })); back.rotation.y = Math.PI; back.position.z = -T - .001;
+    const back = new THREE.Mesh(faceGeo, backMat); back.rotation.y = Math.PI; back.position.z = -T - .001;
     const shadowMat = new THREE.MeshBasicMaterial({ map: shadowTex, transparent: true, depthWrite: false, opacity: .5 });
     const shadow = new THREE.Mesh(shadowGeo, shadowMat); shadow.position.set(.06, -.1, -T - .012);
-    g.add(new THREE.Mesh(bodyGeo, edge), front, back, shadow);
-    g.userData = { k, i, frontMat, shadowMat, jx: Math.sin(i * 7.1) * .09, jy: Math.cos(i * 4.3) * .07, jr: Math.sin(i * 3.7) * .07 };
+    g.add(new THREE.Mesh(bodyGeo, edgeMat), front, back, shadow);
+    g.userData = { k, i, frontMat, mats: [frontMat, backMat, edgeMat], shadowMat, jx: Math.sin(i * 7.1) * .09, jy: Math.cos(i * 4.3) * .07, jr: Math.sin(i * 3.7) * .07 };
     stack.add(g); return g;
   });
   const redraw = () => cards.forEach(c => { const t = c.userData.frontMat.map; t.image = cardCanvas(c.userData.k); t.needsUpdate = true; });
@@ -126,28 +129,32 @@ export function mountCards() {
   watch(canvas, {
     tick(t, dt) {
       const st = stepFloat(intro);
-      s = lerp(s, st.sp, 1 - Math.exp(-dt * 5));
+      s = lerp(s, st.sp, 1 - Math.exp(-dt * 3.5));
       counter.textContent = `Karte ${st.on + 1} / ${N}`;
       mx = lerp(mx, tmx, 1 - Math.exp(-dt * 6)); my = lerp(my, tmy, 1 - Math.exp(-dt * 6));
       // the stack leans back like cards on a desk; the mouse tilts it a little
       stack.rotation.set(-.42 + my * .18, -.22 + mx * .3, .05);
       stack.position.y = REDUCE ? 0 : Math.sin(t * 1.2) * .03;
-      const outs = cards.map(c => c.userData.i === N - 1 ? 0 : smooth(.62, 1, s - c.userData.i));
+      // a card leaves over most of its step, so the motion follows the scroll instead of snapping
+      const outs = cards.map(c => c.userData.i === N - 1 ? 0 : smooth(.3, 1, s - c.userData.i));
       let gone = 0;
       cards.forEach((c, i) => {
         const u = c.userData, out = outs[i];
         const d = Math.max(0, i - gone);             // position in the remaining stack, 0 = top
         gone += out;
         const mess = Math.min(d, 2);
-        // flick: lift towards the viewer, swing left and spin away
-        const fx = -4.6 * out * out, fy = .5 * Math.sin(Math.PI * out), fz = 1.2 * Math.sin(Math.PI * out * .8);
-        c.position.set(u.jx * mess + fx, u.jy * mess + fy, -d * .07 + fz);
-        c.rotation.set(-.35 * out, .6 * out, u.jr * mess + .9 * out);
-        c.visible = out < .999;
+        // flick: lift towards the viewer, drift up, turn and fade out
+        // well before it reaches the edge of the canvas
+        const fade = 1 - smooth(.35, .85, out);
+        c.position.set(u.jx * mess - .7 * out, u.jy * mess + 1.6 * out, -d * .07 + 1.4 * Math.sin(Math.PI * .5 * out));
+        c.rotation.set(-.3 * out, .45 * out, u.jr * mess + .55 * out);
+        c.visible = fade > .001;
         c.renderOrder = N - i;
-        u.shadowMat.opacity = .5 * (1 - out);
+        u.mats.forEach(m => { m.opacity = fade; m.depthWrite = fade > .99; });
+        u.shadowMat.opacity = .5 * fade * (1 - out);
       });
-      const dist = 5.1 / (.536 * Math.min(cam.aspect, 1.25));
+      // fit the card width (plus tilt and jitter) to the canvas width
+      const dist = 4.7 / (.536 * Math.min(cam.aspect, 1.25));
       cam.position.set(0, .15, dist); cam.lookAt(0, 0, 0);
       r.render(scene, cam);
     }

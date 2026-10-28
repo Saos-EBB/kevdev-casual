@@ -1,6 +1,6 @@
 // Halde: ceramic coffee dripper. Parts pull apart, coffee drips, the glaze is selectable.
 import * as THREE from "three";
-import { REDUCE, V, col, contactShadow, ease, lerp, makeEnv, makeRenderer, seg } from "./shared";
+import { REDUCE, V, col, contactShadow, ease, lerp, makeEnv, makeRenderer, seg, smooth } from "./shared";
 
 /* ================= Halde ================= */
 export function buildHalde(canvas: HTMLCanvasElement) {
@@ -47,13 +47,16 @@ export function buildHalde(canvas: HTMLCanvasElement) {
     renderer, scene, camera,
     setGlaze(hex) { target.copy(col(hex)); },
     update(sp, t, dt) {
-      s = lerp(s, sp, 1 - Math.exp(-dt * 5));
+      s = lerp(s, sp, 1 - Math.exp(-dt * 3.5));
       glaze.color.lerp(target, 1 - Math.exp(-dt * 6));
       const ex = ease(seg(s, .35, 1.25)) * (1 - ease(seg(s, 1.55, 2.1)));
       const cupY = -1.05 - .3 * ex;
       cup.position.y = cupY;
-      dripper.position.y = -.27 + .5 * ex;
-      filter.position.y = -.27 + 1.15 * ex;
+      // while brewing the dripper floats a little above the cup, so you see the drops and the cup filling
+      const brewView = smooth(1.5, 2.1, s) * (1 - smooth(2.9, 3.4, s));
+      const gap = .55 * brewView;
+      dripper.position.y = -.27 + .5 * ex + gap;
+      filter.position.y = -.27 + 1.15 * ex + gap;
       filter.rotation.y = ex * .6;
       shadow.position.y = cupY + .002;
       // brewing: drops fall and the cup fills during step 2
@@ -63,21 +66,19 @@ export function buildHalde(canvas: HTMLCanvasElement) {
       liquid.scale.set(lerp(.88, 1, brew), Math.max(level, .001), lerp(.88, 1, brew));
       liquid.position.y = .08 + level / 2;
       const dripOn = seg(s, 1.6, 1.9) * (1 - seg(s, 2.85, 3.1));
-      const topY = -.27 + .16, botY = cupY + .08 + level;
+      const topY = -.27 + .16 + gap, botY = cupY + .08 + level;
       drops.forEach(d => {
         const k = REDUCE ? d.userData.o : (t * 1.4 + d.userData.o) % 1;
         d.visible = dripOn > .05;
         d.position.set(0, lerp(topY, botY, k * k), 0);
         d.scale.setScalar(dripOn);
       });
-      const spin = REDUCE ? 0 : t * .18;
-      root.rotation.y = spin + s * 1.1 - .5;
-      root.rotation.x = .05 * Math.sin(s * 1.3);
-      const aspect = camera.aspect;
-      const dist = 7.2 / Math.min(1, aspect * 1.15) - ex * .4;
-      const el = lerp(.32, .14, ease(seg(s, 0, 2)));
+      // no constant spin: the piece turns a quarter over the whole story, handles stay readable
+      root.rotation.y = -.7 + .9 * ease(seg(s, 0, 3.5)) + (REDUCE ? 0 : Math.sin(t * .35) * .05);
+      const dist = (7.4 + 1.7 * ex) / Math.min(1, camera.aspect * 1.15);
+      const el = lerp(.3, .18, ease(seg(s, 0, 1.2))) + .22 * brewView;
       camera.position.set(0, Math.sin(el) * dist, Math.cos(el) * dist);
-      camera.lookAt(0, -.15 + ex * .15, 0);
+      camera.lookAt(0, -.15 + ex * .5 + .1 * brewView, 0);
     }
   };
 }

@@ -1,6 +1,6 @@
 // Kern 14: repairable laptop. On scroll it comes apart and each part is highlighted with a callout.
 import * as THREE from "three";
-import { REDUCE, clamp, col, contactShadow, ease, lerp, makeEnv, makeRenderer, seg } from "./shared";
+import { REDUCE, clamp, col, contactShadow, ease, lerp, makeEnv, makeRenderer, seg, smooth } from "./shared";
 
 /* ================= Kern 14 ================= */
 const KERN_STEPS = ["", "display", "keyboard", "battery", "board", "fans", "ssd"];
@@ -95,18 +95,27 @@ export function buildKern(canvas: HTMLCanvasElement) {
 
   const shadow = contactShadow(5.2, .28); shadow.position.y = .001; root.add(shadow);
 
-  const LIFT = { case: 0, board: .75, ssd: 1.05, fans: .95, battery: .75, keyboard: 1.65 };
+  const LIFT: Record<string, number> = { case: 0, board: .75, ssd: 1.05, fans: .95, battery: .75, keyboard: 1.65 };
+  const DELAY: Record<string, number> = { case: 0, keyboard: 0, fans: .12, ssd: .16, board: .2, battery: .24 };
   const tgt = new THREE.Vector3(0, .3, 0), want = new THREE.Vector3(), aw = new THREE.Vector3();
   const st = { s: 0, label: "", lw: 0, x: 0, y: 0 };
   return {
     renderer, scene, camera, st,
     update(sp, t, dt) {
-      const s = st.s = lerp(st.s, sp, 1 - Math.exp(-dt * 4));
-      const e = ease(seg(s, .3, 1.3));
+      const s = st.s = lerp(st.s, sp, 1 - Math.exp(-dt * 3.5));
+      const e = ease(seg(s, .2, 1.1));
+      // Each part owns most of its step: short fade in, a long hold, short fade out.
+      // So only one part is lit at a time instead of two half-lit ones.
       const w: Record<string, number> = {}; let maxW = 0, top = "";
-      KERN_STEPS.forEach((k, i) => { if (!k) return; const v = clamp(1 - Math.abs(s - (i + .45)) * 1.8); w[k] = v; if (v > maxW) { maxW = v; top = k; } });
+      KERN_STEPS.forEach((k, i) => {
+        if (!k) return;
+        const last = i === KERN_STEPS.length - 1;
+        const v = smooth(i - .05, i + .25, s) * (last ? 1 : 1 - smooth(i + .75, i + 1.05, s));
+        w[k] = v; if (v > maxW) { maxW = v; top = k; }
+      });
       w.lid = w.display || 0;
-      Object.keys(LIFT).forEach(k => { const p = parts[k]; p.position.copy(p.userData.base); p.position.y += LIFT[k] * e; });
+      // layers come apart one after another, top first
+      Object.keys(LIFT).forEach(k => { const p = parts[k]; p.position.copy(p.userData.base); p.position.y += LIFT[k] * ease(seg(s, .25 + DELAY[k], .85 + DELAY[k])); });
       parts.battery.position.z += .7 * (w.battery || 0);
       parts.ssd.position.x -= .8 * (w.ssd || 0); parts.ssd.position.y += .2 * (w.ssd || 0);
       parts.board.position.y += .18 * (w.board || 0);
@@ -116,18 +125,21 @@ export function buildKern(canvas: HTMLCanvasElement) {
       display.position.y = -.003 - .4 * (w.display || 0);
       rotors.forEach(r => { r.rotation.y += dt * (REDUCE ? 0 : 1.5 + 18 * (w.fans || 0)); });
       Object.keys(parts).forEach(k => {
-        const pw = w[k] || 0; const op = lerp(1, .14, maxW * (1 - pw));
+        const pw = w[k] || 0, op = lerp(1, .3, maxW * (1 - pw)), lit = pw > .5;
+        // the lit part is drawn last and keeps its depth, so the see-through layers never cover it
+        parts[k].traverse(o => { if ((o as THREE.Mesh).isMesh) o.renderOrder = lit ? 10 : 0; });
         parts[k].userData.mats.forEach(m => {
-          m.opacity = op; m.depthWrite = op > .9;
-          if (!m.userData.noTint) m.emissive.copy(m.userData.em).lerp(ACC, pw * (.42 + .08 * Math.sin(t * 4)));
+          m.opacity = op; m.depthWrite = op > .99 || lit;
+          if (!m.userData.noTint) m.emissive.copy(m.userData.em).lerp(ACC, pw * .45);
         });
       });
-      want.set(0, lerp(.3, 1.35, e), 0);
-      if (top) { parts[top].userData.anchor.getWorldPosition(aw); want.lerp(aw, .4 * maxW); }
-      tgt.lerp(want, 1 - Math.exp(-dt * 4));
-      const az = .72 + s * .12 + (REDUCE ? 0 : Math.sin(t * .25) * .08);
-      const el = lerp(.3, .62, e);
-      const dist = (lerp(8.6, 10.6, e) - 1.6 * maxW) / Math.min(1, camera.aspect * 1.05);
+      // the camera stays put and only leans slightly towards the lit part
+      want.set(0, lerp(.55, 1.35, e), 0);
+      if (top) { parts[top].userData.anchor.getWorldPosition(aw); want.lerp(aw, .12 * maxW); }
+      tgt.lerp(want, 1 - Math.exp(-dt * 2.5));
+      const az = .72 + s * .04 + (REDUCE ? 0 : Math.sin(t * .2) * .04);
+      const el = lerp(.32, .6, e);
+      const dist = (lerp(10.6, 11.4, e) - .6 * maxW) / Math.min(1, camera.aspect * 1.05);
       camera.position.set(tgt.x + Math.sin(az) * Math.cos(el) * dist, tgt.y + Math.sin(el) * dist, tgt.z + Math.cos(az) * Math.cos(el) * dist);
       camera.lookAt(tgt);
       st.label = maxW > .3 ? top : ""; st.lw = maxW;

@@ -100,6 +100,7 @@ function applyFlavor(key: string) {
 }
 document.querySelectorAll<HTMLElement>("#zirbn-flavors .chip").forEach(b => b.addEventListener("click", () => applyFlavor(b.dataset.flavor!)));
 const band = document.getElementById("zirbn-band")!;
+let bandX = 0, lastScroll = scrollY;
 band.innerHTML = Array(8).fill("<span>Zischt · Zirbn · Eiskalt ·</span>").join("");
 
 // transform-only reveals: text is readable before they run
@@ -112,7 +113,12 @@ function frame(now: number) {
   if (active) {
     const art = document.getElementById(active)!;
     const sp = stepFloat(art);
-    if (active === "zirbn" && !REDUCE) band.style.transform = `translateX(${-(scrollY * .35) % (band.scrollWidth / 2)}px)`;
+    if (active === "zirbn" && !REDUCE) {
+      // runs on its own and speeds up while you scroll
+      bandX += dt * 70 + Math.abs(scrollY - lastScroll) * .4;
+      band.style.transform = `translateX(${-(bandX % (band.scrollWidth / 2))}px)`;
+    }
+    lastScroll = scrollY;
     const sc = scenes[active];
     if (sc && sc.visible) { sc.update(sp, now / 1000, dt); sc.renderer.render(sc.scene, sc.camera); if (active === "kern") placeCallout(sc); }
   }
