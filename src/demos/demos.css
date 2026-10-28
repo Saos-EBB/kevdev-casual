@@ -42,7 +42,7 @@ main { padding-top: calc(var(--bar) + env(safe-area-inset-top, 0px)); }
 
 .story { display: flex; max-width: var(--max); margin: 0 auto; padding-inline: var(--gut); gap: 3vw; }
 .steps { flex: 5 1 0; min-width: 0; }
-.stage-wrap { flex: 7 1 0; min-width: 0; }
+.stage-wrap { flex: 7 1 0; min-width: 0; order: 2; }
 .stage { position: sticky; top: calc(var(--bar) + env(safe-area-inset-top, 0px)); height: calc(100vh - var(--bar)); }
 .stage canvas { width: 100%; height: 100%; display: block; }
 .step { min-height: calc(100vh - var(--bar)); display: flex; flex-direction: column; justify-content: center; padding-block: 56px; }
@@ -82,12 +82,14 @@ main { padding-top: calc(var(--bar) + env(safe-area-inset-top, 0px)); }
 /* phone: 3D stage sticks to the top, story panels scroll over it */
 @media (max-width: 820px) {
   .story { display: block; padding-inline: 0; }
-  .stage-wrap { position: sticky; top: calc(var(--bar) + env(safe-area-inset-top, 0px)); height: 50vh; z-index: 0; }
+  /* the 3D stays on top with its own ground; the text scrolls up underneath it */
+  .stage-wrap { position: sticky; top: calc(var(--bar) + env(safe-area-inset-top, 0px)); height: 48vh; z-index: 2; background: var(--bg); transition: background-color .6s; }
+  .stage-wrap::after { content: ""; position: absolute; left: 0; right: 0; top: 100%; height: 28px; background: linear-gradient(var(--bg), transparent); pointer-events: none; }
   .stage { position: static; height: 100%; }
   .steps { position: relative; z-index: 1; padding-inline: var(--gut); }
-  .step { min-height: 82vh; justify-content: flex-end; padding-block: 16px 8vh; }
-  .step:first-child { min-height: 40vh; justify-content: flex-start; padding-top: 8px; }
-  .panel { background: var(--panel); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); padding: 22px; border-radius: 18px; transform: none; opacity: .55; }
+  .step { min-height: 60vh; justify-content: center; padding-block: 32px; }
+  .step:first-child { min-height: 0; padding-top: 20px; }
+  .panel { transform: none; opacity: .45; }
   .demo p { font-size: 16px; }
 }
 
@@ -125,6 +127,9 @@ main { padding-top: calc(var(--bar) + env(safe-area-inset-top, 0px)); }
 .callout span { font-family: var(--mono); font-size: 11px; background: var(--fg); color: var(--bg); padding: 8px 11px; white-space: nowrap; }
 .callout.flip { flex-direction: row-reverse; }
 .callout.flip i { margin: 0 -6px 0 0; }
+.callout.narrow em { display: none; }
+.callout.narrow i { margin: -6px 0 0 -6px; }
+.callout.narrow span { position: absolute; }
 
 /* ---------- Demo 3 · Zirbn (soda can) ---------- */
 .d3 { --bg: #dcefb6; --fg: #0f2a17; --soft: #23432c; --muted: #3f6249; --line: rgba(15,42,23,.18); --line-strong: rgba(15,42,23,.5);

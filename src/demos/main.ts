@@ -60,7 +60,7 @@ document.querySelectorAll<HTMLElement>("[data-go]").forEach(b => b.addEventListe
 
 function stepFloat(art: Element) {
   const steps = art.querySelectorAll(".step");
-  const anchor = innerHeight * (innerWidth <= 820 ? .8 : .55);
+  const anchor = innerHeight * (innerWidth <= 820 ? .74 : .55);
   let sp = 0;
   steps.forEach((el, i) => { const r = el.getBoundingClientRect(); if (r.top <= anchor) sp = i + clamp((anchor - r.top) / r.height); });
   const on = Math.min(steps.length - 1, Math.floor(sp));

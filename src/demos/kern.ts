@@ -154,8 +154,21 @@ export function placeCallout(sc) {
   if (!st.label) { kernCallout.style.opacity = "0"; return; }
   if (st.label !== kernLabel) { kernLabel = st.label; kernCallout.querySelector("span")!.textContent = KERN_LABELS[st.label]; }
   const x = st.x * c.clientWidth, y = st.y * c.clientHeight;
-  const flip = x > c.clientWidth - 240;
-  kernCallout.classList.toggle("flip", flip);
-  kernCallout.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) translate(${flip ? "-100%" : "0"}, -50%)`;
+  const span = kernCallout.querySelector("span")!;
+  // Narrow stage (phones): dot + line + label don't fit beside the part,
+  // so only the dot sits on it and the label pins to the stage's top left.
+  const narrow = c.clientWidth < 560;
+  kernCallout.classList.toggle("narrow", narrow);
+  if (narrow) {
+    kernCallout.classList.remove("flip");
+    span.style.left = `${(12 - x).toFixed(1)}px`;
+    span.style.top = `${(12 - y).toFixed(1)}px`;
+    kernCallout.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px)`;
+  } else {
+    span.style.left = span.style.top = "";
+    const flip = x > c.clientWidth - 240;
+    kernCallout.classList.toggle("flip", flip);
+    kernCallout.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) translate(${flip ? "-100%" : "0"}, -50%)`;
+  }
   kernCallout.style.opacity = String(clamp((st.lw - .3) * 3));
 }

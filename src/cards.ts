@@ -64,7 +64,7 @@ function cardCanvas(kind: string) {
 }
 function stepFloat(root: Element) {
   const steps = root.querySelectorAll<HTMLElement>(".cs-step");
-  const anchor = innerHeight * (innerWidth <= 860 ? .8 : .55);
+  const anchor = innerHeight * (innerWidth <= 860 ? .74 : .55);
   let sp = 0;
   steps.forEach((el, i) => { const r = el.getBoundingClientRect(); if (r.top <= anchor) sp = i + clamp((anchor - r.top) / r.height); });
   const on = Math.min(steps.length - 1, Math.floor(sp));
