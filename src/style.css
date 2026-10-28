@@ -171,6 +171,9 @@ section { padding-block: 110px; }
 footer { padding-block: 32px 48px; }
 footer .wrap { display: flex; flex-wrap: wrap; gap: 12px 24px; justify-content: space-between; font-size: 14px; color: var(--muted); }
 footer a { color: var(--muted); }
+.sites { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.sites a { text-decoration: none; }
+.sites a:hover, .sites a[aria-current="page"] { color: var(--fg); }
 
 .js .rv { transform: translateY(32px); transition: transform 1s cubic-bezier(.2,.7,.2,1); }
 .js .rv.in { transform: none; }
