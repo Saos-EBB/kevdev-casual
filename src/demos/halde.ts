@@ -18,21 +18,54 @@ export function buildHalde(canvas: HTMLCanvasElement) {
 
   const root = new THREE.Group(); scene.add(root);
 
+  // A ceramic handle: one smooth strap from the wall out and back into it,
+  // with a flattened oval cross-section like pulled clay. Both ends start a
+  // little inside the wall, so the open tube ends never show.
+  const strap = (pts: [number, number][], r: number) => {
+    const curve = new THREE.CatmullRomCurve3(pts.map(([x, y]) => new THREE.Vector3(x, y, 0)));
+    const geo = new THREE.TubeGeometry(curve, 72, r, 20, false);
+    geo.scale(1, 1, .5);
+    return new THREE.Mesh(geo, glaze);
+  };
+
   const dripper = new THREE.Group();
   dripper.add(new THREE.Mesh(new THREE.LatheGeometry([V(0, .16), V(.3, .16), V(.98, .98), V(1.06, 1), V(1.06, 1.05), V(.98, 1.06), V(.27, .22), V(0, .22)], 120), glaze));
   const foot = new THREE.Mesh(new THREE.CylinderGeometry(.58, .6, .07, 96), glaze); foot.position.y = .05; dripper.add(foot);
   const footRaw = new THREE.Mesh(new THREE.CylinderGeometry(.6, .6, .016, 96), bisque); footRaw.position.y = .008; dripper.add(footRaw);
   const neck = new THREE.Mesh(new THREE.CylinderGeometry(.31, .34, .1, 64), glaze); neck.position.y = .12; dripper.add(neck);
-  const dHandle = new THREE.Mesh(new THREE.TorusGeometry(.2, .045, 16, 48, Math.PI), glaze);
-  dHandle.rotation.z = -Math.PI / 2; dHandle.position.set(.68, .6, 0); dripper.add(dHandle);
+  dripper.add(strap([[.86, .86], [1.0, .9], [1.14, .83], [1.19, .68], [1.1, .54], [.9, .48], [.55, .5]], .05));
 
-  const filter = new THREE.Mesh(new THREE.LatheGeometry([V(.29, .24), V(.95, 1.13)], 64), paper);
+  // What makes Halde Halde: twelve ribs spiral down the inner wall (the paper
+  // only touches the ribs, so air escapes and the water runs evenly) and three
+  // 2.5 mm holes in the floor. You see them when the filter lifts out.
+  const rIn = (y: number) => .27 + .845 * (y - .22); // inner wall radius at height y
+  for (let k = 0; k < 12; k++) {
+    const a0 = k / 12 * Math.PI * 2;
+    const pts: THREE.Vector3[] = [];
+    for (let i = 0; i <= 24; i++) {
+      const t = i / 24, y = .3 + t * .7, a = a0 + t * 1.15, r = rIn(y) - .012;
+      pts.push(new THREE.Vector3(Math.cos(a) * r, y, Math.sin(a) * r));
+    }
+    dripper.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3(pts), 48, .016, 6, false), glaze));
+  }
+  const holeMat = new THREE.MeshBasicMaterial({ color: col("#0d1311") });
+  for (let k = 0; k < 3; k++) {
+    const a = k / 3 * Math.PI * 2 + .5, hole = new THREE.Mesh(new THREE.CircleGeometry(.032, 24), holeMat);
+    hole.rotation.x = -Math.PI / 2; hole.position.set(Math.cos(a) * .11, .223, Math.sin(a) * .11); dripper.add(hole);
+  }
+
+  // The paper filter follows the inner wall and stands well above the rim,
+  // with the glued seam of a real size-02 filter.
+  const filter = new THREE.Group();
+  // rests on the ribs, .035 inside the wall
+  filter.add(new THREE.Mesh(new THREE.LatheGeometry([V(rIn(.26) - .035, .26), V(rIn(1.36) - .035, 1.36)], 72), paper));
+  const seamMat = new THREE.MeshStandardMaterial({ color: col("#e0d7c4"), roughness: .95, side: THREE.DoubleSide });
+  filter.add(new THREE.Mesh(new THREE.LatheGeometry([V(rIn(.26) - .029, .26), V(rIn(1.36) - .029, 1.36)], 6, .3, .14), seamMat));
 
   const cup = new THREE.Group();
   cup.add(new THREE.Mesh(new THREE.LatheGeometry([V(0, 0), V(.46, 0), V(.5, .03), V(.61, .74), V(.64, .77), V(.6, .79), V(.56, .76), V(.46, .08), V(0, .08)], 120), glaze));
   const cRaw = new THREE.Mesh(new THREE.CylinderGeometry(.47, .47, .014, 96), bisque); cRaw.position.y = .007; cup.add(cRaw);
-  const cHandle = new THREE.Mesh(new THREE.TorusGeometry(.2, .05, 16, 48, Math.PI), glaze);
-  cHandle.rotation.z = -Math.PI / 2; cHandle.position.set(.6, .4, 0); cup.add(cHandle);
+  cup.add(strap([[.57, .62], [.69, .67], [.81, .62], [.87, .46], [.83, .3], [.7, .2], [.5, .19]], .05));
   const liquid = new THREE.Mesh(new THREE.CylinderGeometry(.53, .47, 1, 64), coffee);
   cup.add(liquid);
 
@@ -56,8 +89,9 @@ export function buildHalde(canvas: HTMLCanvasElement) {
       const brewView = smooth(1.5, 2.1, s) * (1 - smooth(2.9, 3.4, s));
       const gap = .55 * brewView;
       dripper.position.y = -.27 + .5 * ex + gap;
-      filter.position.y = -.27 + 1.15 * ex + gap;
-      filter.rotation.y = ex * .6;
+      // the filter lifts out and drifts to the side, so the camera can look into the dripper
+      filter.position.set(-.8 * ex, -.27 + 1.2 * ex + gap, -.7 * ex);
+      filter.rotation.set(0, ex * .6, .35 * ex);
       shadow.position.y = cupY + .002;
       // brewing: drops fall and the cup fills during step 2
       const brew = seg(s, 1.7, 2.9);
@@ -76,9 +110,11 @@ export function buildHalde(canvas: HTMLCanvasElement) {
       // no constant spin: the piece turns a quarter over the whole story, handles stay readable
       root.rotation.y = -.7 + .9 * ease(seg(s, 0, 3.5)) + (REDUCE ? 0 : Math.sin(t * .35) * .05);
       const dist = (7.4 + 1.7 * ex) / Math.min(1, camera.aspect * 1.15);
-      const el = lerp(.3, .18, ease(seg(s, 0, 1.2))) + .22 * brewView;
+      // while the parts are apart the camera rises and looks into the dripper,
+      // so the ribs and the three holes show
+      const el = lerp(.3, .18, ease(seg(s, 0, 1.2))) + .5 * ex + .22 * brewView;
       camera.position.set(0, Math.sin(el) * dist, Math.cos(el) * dist);
-      camera.lookAt(0, -.15 + ex * .5 + .1 * brewView, 0);
+      camera.lookAt(0, -.15 + ex * .7 + .1 * brewView, 0);
     }
   };
 }
