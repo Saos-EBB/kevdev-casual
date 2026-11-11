@@ -7,57 +7,57 @@ import { REDUCE, clamp, lerp, smooth, watch } from "./util";
 function cardCanvas(kind: string) {
   const c = document.createElement("canvas"); c.width = 1020; c.height = 660;
   const g = c.getContext("2d")!;
-  const D = '"Gabarito Variable", system-ui, sans-serif', M = '"Martian Mono Variable", ui-monospace, monospace', B = '"Onest Variable", system-ui, sans-serif';
-  const ORANGE = "#ec5320", INK = "#12151a";
+  const D = '"Onest Variable", system-ui, sans-serif', M = '"Martian Mono Variable", ui-monospace, monospace', B = '"Onest Variable", system-ui, sans-serif';
+  const ORANGE = "#e8501c", INK = "#0c0d0f";
   const fill = (col) => { g.fillStyle = col; g.fillRect(0, 0, 1020, 660); };
   const t = (txt: string, x: number, y: number, font: string, col: string, align: CanvasTextAlign = "left") => { g.font = font; g.fillStyle = col; g.textAlign = align; g.fillText(txt, x, y); };
   const foot = (n, col) => t(n + " / 05", 950, 610, "500 24px " + M, col, "right");
-  const logo = (col, dot = ORANGE) => { t("kev", 70, 112, "800 46px " + D, col); const w = g.measureText("kev").width; t(".", 70 + w, 112, "800 46px " + D, dot); t("dev", 70 + w + g.measureText(".").width, 112, "800 46px " + D, col); };
+  const logo = (col, dot = ORANGE) => { t("kev", 70, 112, "700 46px " + D, col); const w = g.measureText("kev").width; t(".", 70 + w, 112, "700 46px " + D, dot); t("dev", 70 + w + g.measureText(".").width, 112, "700 46px " + D, col); };
   if (kind === "back") {
     fill(ORANGE);
     g.globalAlpha = .12; for (let i = 0; i < 9; i++) { g.beginPath(); g.arc(900, 560, 90 + i * 70, 0, 7); g.lineWidth = 3; g.strokeStyle = "#fff"; g.stroke(); } g.globalAlpha = 1;
-    t("kev.dev", 510, 350, "800 150px " + D, "#ffffff", "center");
+    t("kev.dev", 510, 350, "700 140px " + D, "#ffffff", "center");
     t("Produktseiten, die man anfassen will", 510, 430, "500 26px " + M, "rgba(255,255,255,.8)", "center");
   } else if (kind === "name") {
     fill("#ffffff"); logo(INK);
-    t("sofort verfügbar", 950, 112, "500 24px " + M, "#5a6270", "right");
+    t("sofort verfügbar", 950, 112, "500 24px " + M, "#6f757d", "right");
     const aw = g.measureText("sofort verfügbar").width;
-    g.fillStyle = "#2fbf71"; g.beginPath(); g.arc(950 - aw - 22, 103, 10, 0, 7); g.fill();
-    t("Kevin", 70, 300, "800 140px " + D, INK); t("Schaberl", 70, 430, "800 140px " + D, INK);
-    t("Webentwickler · Produktseiten in 3D", 74, 500, "500 36px " + B, "#3a4250");
-    t("Linz · remote im DACH-Raum", 74, 610, "500 24px " + M, "#6a7382"); foot("01", "#6a7382");
+    g.fillStyle = "#23a45f"; g.beginPath(); g.arc(950 - aw - 22, 103, 10, 0, 7); g.fill();
+    t("Kevin", 70, 300, "650 140px " + D, INK); t("Schaberl", 70, 430, "650 140px " + D, INK);
+    t("Webentwickler · Produktseiten in 3D", 74, 500, "500 36px " + B, "#3d4248");
+    t("Linz · remote im DACH-Raum", 74, 610, "500 24px " + M, "#6f757d"); foot("01", "#6f757d");
     g.fillStyle = ORANGE; g.fillRect(0, 640, 1020, 20);
   } else if (kind === "build") {
     fill(INK); logo("#ffffff");
     t("WAS ICH BAUE", 70, 200, "500 26px " + M, ORANGE);
-    ["Produktseiten in 3D", "Scroll-Storytelling", "Eigene Handy-Variante"].forEach((s, i) => { t(s, 70, 300 + i * 96, "700 70px " + D, "#ffffff"); });
+    ["Produktseiten in 3D", "Scroll-Storytelling", "Eigene Handy-Variante"].forEach((s, i) => { t(s, 70, 300 + i * 96, "600 68px " + D, "#ffffff"); });
     foot("02", "rgba(255,255,255,.55)");
   } else if (kind === "tools") {
-    fill("#e3e8ee"); logo(INK);
+    fill("#ecece9"); logo(INK);
     t("WOMIT", 70, 200, "500 26px " + M, ORANGE);
     const chips = ["TypeScript", "Three.js", "GSAP", "Vite", "React", "PostgreSQL", "Docker", "C++"];
     let x = 70, y = 236;
-    g.font = "700 46px " + D;
+    g.font = "600 44px " + D;
     chips.forEach(s => {
       const w = g.measureText(s).width + 56;
       if (x + w > 950) { x = 70; y += 96; }
       g.fillStyle = "#ffffff"; g.beginPath(); g.roundRect ? g.roundRect(x, y, w, 74, 37) : g.rect(x, y, w, 74); g.fill();
-      t(s, x + 28, y + 53, "700 46px " + D, INK); g.font = "700 46px " + D;
+      t(s, x + 28, y + 52, "600 44px " + D, INK); g.font = "600 44px " + D;
       x += w + 16;
     });
-    t("Full-Stack-Bootcamp · Talent Hub Linz", 70, 610, "500 24px " + M, "#6a7382"); foot("03", "#6a7382");
+    t("Full-Stack-Bootcamp · Talent Hub Linz", 70, 610, "500 24px " + M, "#6f757d"); foot("03", "#6f757d");
   } else if (kind === "work") {
     fill(ORANGE); logo("#ffffff", INK);
-    t("9 Projekte,", 70, 270, "800 100px " + D, "#ffffff"); t("alle solo.", 70, 370, "800 100px " + D, "#ffffff");
+    t("9 Projekte,", 70, 270, "650 100px " + D, "#ffffff"); t("alle solo.", 70, 370, "650 100px " + D, "#ffffff");
     const names = ["YourBrand", "TschoBBo", "kev.dev", "FaceDots", "3D-Renderer", "Oskalizer", "ReleaseWatcher", "AniScript", "Grundlagen"];
     names.forEach((n, i) => t(n, 70 + (i % 3) * 300, 470 + Math.floor(i / 3) * 46, "500 26px " + M, "rgba(255,255,255,.92)"));
     foot("04", "rgba(255,255,255,.7)");
   } else if (kind === "hello") {
     fill("#ffffff"); logo(INK);
     t("SAG HALLO", 70, 220, "500 26px " + M, ORANGE);
-    t("kevin.schaberl.work@gmail.com", 70, 320, "700 54px " + D, INK);
-    t("github.com/Saos-EBB", 70, 400, "500 38px " + B, "#3a4250");
-    t("Ich antworte persönlich.", 70, 610, "500 24px " + M, "#6a7382"); foot("05", "#6a7382");
+    t("kevin.schaberl.work@gmail.com", 70, 320, "600 49px " + D, INK);
+    t("github.com/Saos-EBB", 70, 400, "500 38px " + B, "#3d4248");
+    t("Ich antworte persönlich.", 70, 610, "500 24px " + M, "#6f757d"); foot("05", "#6f757d");
     g.fillStyle = ORANGE; g.fillRect(0, 640, 1020, 20);
   }
   return c;
@@ -66,7 +66,11 @@ function stepFloat(root: Element) {
   const steps = root.querySelectorAll<HTMLElement>(".cs-step");
   const anchor = innerHeight * (innerWidth <= 860 ? .74 : .55);
   let sp = 0;
-  steps.forEach((el, i) => { const r = el.getBoundingClientRect(); if (r.top <= anchor) sp = i + clamp((anchor - r.top) / r.height); });
+  steps.forEach((el, i) => {
+    const r = el.getBoundingClientRect(); if (r.top > anchor) return;
+    // the first step counts from the top of the page, so the stack is untouched before you scroll (see demos/main.ts)
+    sp = i ? i + clamp((anchor - r.top) / r.height) : clamp(scrollY / Math.max(1, r.top + scrollY + r.height - anchor));
+  });
   const on = Math.min(steps.length - 1, Math.floor(sp));
   // only touch the classes when the step changes (see demos/main.ts)
   if (root.getAttribute("data-on") !== String(on)) {
