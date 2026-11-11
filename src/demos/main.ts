@@ -2,11 +2,8 @@
 // built the first time its tab opens and only renders while it is visible.
 import "@fontsource/gloock/latin.css";
 import "@fontsource-variable/hanken-grotesk";
-import "@fontsource/ibm-plex-mono/latin-400.css";
-import "@fontsource/ibm-plex-mono/latin-500.css";
 import "@fontsource-variable/schibsted-grotesk";
-import "@fontsource-variable/martian-mono";
-import "@fontsource/bagel-fat-one/latin.css";
+import "@fontsource-variable/gabarito";
 import "@fontsource-variable/rethink-sans";
 import "./demos.css";
 import { REDUCE, clamp } from "./shared";
@@ -67,7 +64,12 @@ function stepFloat(art: Element) {
   const steps = art.querySelectorAll(".step");
   const anchor = innerHeight * (innerWidth <= 820 ? .74 : .55);
   let sp = 0;
-  steps.forEach((el, i) => { const r = el.getBoundingClientRect(); if (r.top <= anchor) sp = i + clamp((anchor - r.top) / r.height); });
+  steps.forEach((el, i) => {
+    const r = el.getBoundingClientRect(); if (r.top > anchor) return;
+    // the first step starts above the anchor line: count it from the top of the
+    // page instead, so the product is still in one piece before you scroll
+    sp = i ? i + clamp((anchor - r.top) / r.height) : clamp(scrollY / Math.max(1, r.top + scrollY + r.height - anchor));
+  });
   const on = Math.min(steps.length - 1, Math.floor(sp));
   // only touch the classes when the step changes: a class write every frame
   // invalidates styles, and the next frame's position reads then force a recalc

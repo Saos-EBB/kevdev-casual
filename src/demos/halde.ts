@@ -1,19 +1,16 @@
 // Halde: ceramic coffee dripper. Parts pull apart, coffee drips, the glaze is selectable.
 import * as THREE from "three";
-import { REDUCE, V, col, contactShadow, ease, lerp, makeEnv, makeRenderer, seg, smooth } from "./shared";
+import { REDUCE, V, col, ease, lerp, makeGround, makeStudio, seg, shade, smooth } from "./shared";
 
 /* ================= Halde ================= */
 export function buildHalde(canvas: HTMLCanvasElement) {
-  const renderer = makeRenderer(canvas);
-  const scene = new THREE.Scene();
-  scene.environment = makeEnv(renderer, "#9fb0a8");
+  const { renderer, scene } = makeStudio(canvas, 3.4, [2.2, 8, 3.2]);
   const camera = new THREE.PerspectiveCamera(30, 1, .1, 60);
-  scene.add(new THREE.HemisphereLight(col("#f4f7f5"), col("#5f6f68"), .5 * Math.PI));
-  const key = new THREE.DirectionalLight(0xffffff, 1.6 * Math.PI); key.position.set(3, 5, 4); scene.add(key);
 
-  const glaze = new THREE.MeshStandardMaterial({ color: col("#2f5d62"), roughness: .22, metalness: 0, side: THREE.DoubleSide });
+  // glazed stoneware: a matt body under a glossy clear coat
+  const glaze = new THREE.MeshPhysicalMaterial({ color: col("#2f5d62"), roughness: .42, metalness: 0, clearcoat: 1, clearcoatRoughness: .1, side: THREE.DoubleSide });
   const bisque = new THREE.MeshStandardMaterial({ color: col("#cfc6b6"), roughness: .95 });
-  const paper = new THREE.MeshStandardMaterial({ color: col("#efe9dc"), roughness: .95, side: THREE.DoubleSide });
+  const paper = new THREE.MeshStandardMaterial({ color: col("#a39378"), roughness: 1, side: THREE.DoubleSide }); // unbleached paper
   const coffee = new THREE.MeshStandardMaterial({ color: col("#2b170d"), roughness: .08 });
 
   const root = new THREE.Group(); scene.add(root);
@@ -55,7 +52,7 @@ export function buildHalde(canvas: HTMLCanvasElement) {
     hole.rotation.x = -Math.PI / 2; hole.position.set(Math.cos(a) * .11, .223, Math.sin(a) * .11); dripper.add(hole);
     // a soft pulsing ring marks each hole while the camera looks straight in
     const ring = new THREE.Mesh(new THREE.RingGeometry(.048, .064, 32), ringMat);
-    ring.rotation.x = -Math.PI / 2; ring.position.set(Math.cos(a) * .11, .224, Math.sin(a) * .11); dripper.add(ring);
+    ring.rotation.x = -Math.PI / 2; ring.position.set(Math.cos(a) * .11, .224, Math.sin(a) * .11); ring.userData.flat = true; dripper.add(ring);
   }
 
   // The paper filter follows the inner wall and stands well above the rim,
@@ -63,7 +60,7 @@ export function buildHalde(canvas: HTMLCanvasElement) {
   const filter = new THREE.Group();
   // rests on the ribs, .035 inside the wall
   filter.add(new THREE.Mesh(new THREE.LatheGeometry([V(rIn(.26) - .035, .26), V(rIn(1.36) - .035, 1.36)], 72), paper));
-  const seamMat = new THREE.MeshStandardMaterial({ color: col("#e0d7c4"), roughness: .95, side: THREE.DoubleSide });
+  const seamMat = new THREE.MeshStandardMaterial({ color: col("#93846b"), roughness: 1, side: THREE.DoubleSide });
   filter.add(new THREE.Mesh(new THREE.LatheGeometry([V(rIn(.26) - .029, .26), V(rIn(1.36) - .029, 1.36)], 6, .3, .14), seamMat));
 
   const cup = new THREE.Group();
@@ -75,8 +72,13 @@ export function buildHalde(canvas: HTMLCanvasElement) {
 
   const drops: THREE.Mesh[] = [];
   for (let i = 0; i < 5; i++) { const d = new THREE.Mesh(new THREE.SphereGeometry(.028, 12, 12), coffee); d.userData.o = i / 5; drops.push(d); root.add(d); }
-  const shadow = contactShadow(2.4, .35);
-  root.add(dripper, filter, cup, shadow);
+  root.add(dripper, filter, cup);
+  shade(root);
+  // the marker rings are only a hint drawn on the floor of the dripper, the drops are too small to matter
+  root.traverse(o => { if (o.userData.flat || drops.includes(o as THREE.Mesh)) o.castShadow = o.receiveShadow = false; });
+  // soft shadow maps leave fine rings on the matt paper, so it only casts
+  filter.traverse(o => { o.receiveShadow = false; });
+  const ground = makeGround(3); root.add(ground);
 
   const target = new THREE.Color().copy(glaze.color);
   let s = 0;
@@ -100,7 +102,7 @@ export function buildHalde(canvas: HTMLCanvasElement) {
       // the filter lifts out and drifts to the side, so the camera can look into the dripper
       filter.position.set(-.8 * ex, -.27 + 1.2 * ex + gap, -.7 * ex);
       filter.rotation.set(0, ex * .6, .35 * ex);
-      shadow.position.y = cupY + .002;
+      ground.position.y = cupY;
       ringMat.opacity = inspect * (.6 + (REDUCE ? 0 : .3 * Math.sin(t * 4)));
       const brew = seg(s, 2.55, 3.35);
       const level = .55 * brew;
