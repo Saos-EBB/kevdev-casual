@@ -23,10 +23,10 @@ Zwei Einstiege in `vite.config.ts`, normale Navigation ohne Router:
 
 - `src/main.ts`: Schriften und Module der Hauptseite
 - `src/cards.ts`: Intro mit dem 3D-Stapel aus fünf Visitenkarten (85 × 55 mm). Die Kartentexte werden in `cardCanvas()` gezeichnet.
-- `src/demo-art.ts`: die kleinen 2D-Animationen auf den Demo-Karten
+- `src/assets/demo-*.webp`: die Bilder auf den Demo-Karten. Das sind Renderings der echten Demo-Szenen mit durchsichtigem Hintergrund (Screenshot des Canvas, zugeschnitten, als WebP). Ändert sich ein Modell, müssen sie neu aufgenommen werden.
 - `src/dots.ts`: Punkte-Porträt in „Über mich“, Platzhalter bis FaceDots ein echtes Foto bekommt
 - `src/ui.ts`, `src/util.ts`: Einblenden beim Scrollen, Mail kopieren, ein gemeinsamer rAF-Loop (jede Canvas zeichnet nur, solange sie sichtbar ist)
-- `src/demos/`: `main.ts` (Tabs, Scroll-Fortschritt, Regler), `shared.ts` (Renderer, Umgebungslicht), je eine Datei pro Szene: `halde.ts` (Kaffeefilter), `kern.ts` (Laptop, Explosionsansicht), `zirbn.ts` (Limo-Dose)
+- `src/demos/`: `main.ts` (Tabs, Scroll-Fortschritt, Regler), `shared.ts` (Studio-Licht, Schatten, Bauteile mit runden Ecken), je eine Datei pro Szene: `halde.ts` (Kaffeefilter), `kern.ts` (Laptop, Explosionsansicht), `zirbn.ts` (Limo-Dose)
 
 ## Offen
 
