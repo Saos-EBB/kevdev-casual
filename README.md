@@ -14,10 +14,11 @@ Vanilla TypeScript + Vite + three.js, kein Framework.
 
 ## Seiten
 
-Zwei Einstiege in `vite.config.ts`, normale Navigation ohne Router:
+Mehrere Einstiege in `vite.config.ts`, normale Navigation ohne Router:
 
 - `index.html`: die Hauptseite (alle Texte stehen hier)
 - `demos/index.html`: die Demo-Produktseiten, ein Tab pro Produkt, per `#halde`, `#kern`, `#zirbn` direkt verlinkbar
+- `demos/parkett.html`, `demos/supra.html`, `demos/schneiderei.html`: drei Betriebs-Demos (Parkettleger, Restaurant, Schneiderei) mit Inhaber-Bereich (`#owner`). Jede ist eine eigenständige Seite mit eigenem CSS und JS im HTML, Zustand nur im `localStorage` des Besuchers. Schriften kommen aus `src/demos/fonts-*.ts` (Fontsource, keine Google-Anfrage).
 
 ## Aufbau
 

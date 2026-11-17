@@ -1,7 +1,7 @@
 import { resolve } from "node:path";
 import { defineConfig } from "vite";
 
-// Four pages: the main site, the demo product pages and the two legal pages (full navigation, no router).
+// Pages: the main site, the demo product pages, three business demos and the two legal pages (full navigation, no router).
 export default defineConfig({
   build: {
     // Never inline fonts as base64: the font packages split each face into many
@@ -12,6 +12,9 @@ export default defineConfig({
       input: {
         main: resolve(import.meta.dirname, "index.html"),
         demos: resolve(import.meta.dirname, "demos/index.html"),
+        parkett: resolve(import.meta.dirname, "demos/parkett.html"),
+        supra: resolve(import.meta.dirname, "demos/supra.html"),
+        schneiderei: resolve(import.meta.dirname, "demos/schneiderei.html"),
         impressum: resolve(import.meta.dirname, "impressum.html"),
         datenschutz: resolve(import.meta.dirname, "datenschutz.html"),
       },
