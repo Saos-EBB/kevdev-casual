@@ -120,10 +120,11 @@ section { padding-block: clamp(72px, 9vw, 128px); }
 .d-parkett { --c-bg: #ece4d8; }
 .d-supra { --c-bg: #f1e3e5; }
 .d-schneider { --c-bg: #e2e6ef; }
-/* Betriebs-Demos: ohne Bild, drei gleich breite Karten */
+/* Betriebs-Demos: drei gleich breite Karten, Bild oben */
 .apps-head { margin-top: 72px; }
 .demos.apps { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: auto; }
 .demos.apps .demo { grid-template-columns: 1fr; min-height: 260px; }
+.demos.apps .demo .art { order: 0; aspect-ratio: 4 / 3; height: auto; padding: 24px 24px 0; }
 @media (max-width: 860px) { .demos.apps { grid-template-columns: 1fr; } .demos.apps .demo { min-height: 0; } }
 @media (max-width: 860px) { .demos { grid-template-columns: 1fr; } .demo.big { grid-row: auto; min-height: 0; } .demo.big .art { aspect-ratio: 4 / 3; height: auto; } }
 @media (max-width: 520px) { .demo { grid-template-columns: 1fr; } .demo .art { order: 0; aspect-ratio: 4 / 3; height: auto; padding: 12px 24px 0; } }
