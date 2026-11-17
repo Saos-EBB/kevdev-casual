@@ -114,9 +114,25 @@ section { padding-block: clamp(72px, 9vw, 128px); }
 .demo .tags { display: flex; flex-wrap: wrap; gap: 6px; }
 .demo .tags span { font-size: 12px; font-weight: 500; padding: 3px 9px; border-radius: 999px; box-shadow: inset 0 0 0 1px rgba(12,13,15,.16); color: #3d4248; }
 .demo .open { margin-top: 8px; font-size: 14px; font-weight: 600; }
+/* Was in der Demo steckt: ✓ drin, – nicht drin */
+.demo .inc { list-style: none; margin: 2px 0 0; padding: 0; display: grid; gap: 4px; font-size: 14px; color: #3d4248; }
+.demo .inc li { display: flex; gap: 8px; align-items: baseline; }
+.demo .inc li::before { flex: none; width: 1em; font-weight: 700; }
+.demo .inc .y::before { content: "✓"; color: #1f7a4d; }
+.demo .inc .n { color: #6f757d; }
+.demo .inc .n::before { content: "–"; color: #6f757d; }
 .d-kern { --c-bg: #f1f2f4; }
 .d-halde { --c-bg: #efede8; }
 .d-zirbn { --c-bg: #e6eedb; }
+.d-parkett { --c-bg: #ece4d8; }
+.d-supra { --c-bg: #f1e3e5; }
+.d-schneider { --c-bg: #e2e6ef; }
+/* Betriebs-Demos: drei gleich breite Karten, Bild oben */
+.apps-head { margin-top: 72px; }
+.demos.apps { grid-template-columns: repeat(3, minmax(0, 1fr)); grid-template-rows: auto; }
+.demos.apps .demo { grid-template-columns: 1fr; min-height: 260px; }
+.demos.apps .demo .art { order: 0; aspect-ratio: 4 / 3; height: auto; padding: 24px 24px 0; }
+@media (max-width: 860px) { .demos.apps { grid-template-columns: 1fr; } .demos.apps .demo { min-height: 0; } }
 @media (max-width: 860px) { .demos { grid-template-columns: 1fr; } .demo.big { grid-row: auto; min-height: 0; } .demo.big .art { aspect-ratio: 4 / 3; height: auto; } }
 @media (max-width: 520px) { .demo { grid-template-columns: 1fr; } .demo .art { order: 0; aspect-ratio: 4 / 3; height: auto; padding: 12px 24px 0; } }
 
